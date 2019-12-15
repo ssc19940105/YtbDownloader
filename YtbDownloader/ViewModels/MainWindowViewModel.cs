@@ -153,7 +153,7 @@ namespace YtbDownloader.ViewModels
         {
             using (var kernel = new StandardKernel())
             {
-                kernel.Bind<Downloader, IDownloader>();
+                kernel.Bind<IDownloader>().To<Downloader>();
                 downloader = kernel.Get<IDownloader>();
                 downloader.LogReceived += Downloader_LogReceived;
                 downloader.DowndloadStart += Downloader_DowndloadStart;
