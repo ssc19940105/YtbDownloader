@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YtbDownloader", "YtbDownloader\YtbDownloader.csproj", "{E46D2BB9-E4D1-4BD3-A16F-3ED69C225301}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YtbDownloader.Core", "YtbDownloader.Core\YtbDownloader.Core.csproj", "{C5911294-F406-4397-8212-D0ABA036026F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E46D2BB9-E4D1-4BD3-A16F-3ED69C225301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E46D2BB9-E4D1-4BD3-A16F-3ED69C225301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E46D2BB9-E4D1-4BD3-A16F-3ED69C225301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E46D2BB9-E4D1-4BD3-A16F-3ED69C225301}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5911294-F406-4397-8212-D0ABA036026F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5911294-F406-4397-8212-D0ABA036026F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5911294-F406-4397-8212-D0ABA036026F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5911294-F406-4397-8212-D0ABA036026F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D2521643-9EC0-436D-B748-B8564A1B8200}
+	EndGlobalSection
+EndGlobal
