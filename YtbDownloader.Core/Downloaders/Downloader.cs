@@ -143,7 +143,7 @@ namespace YtbDownloader.Core.Downloaders
                     }
                     catch (Win32Exception e)
                     {
-                        OnLogReceived(new LogReceivedEventArgs(e.Message).ToString());
+                        OnLogReceived(e.Message);
                         OnComplete();
                     }
                 });
