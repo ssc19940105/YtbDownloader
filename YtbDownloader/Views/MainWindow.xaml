@@ -2,7 +2,6 @@
     x:Class="YtbDownloader.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -107,7 +106,7 @@
                             <RadioButton
                                 Margin="10,0,0,0"
                                 Content="Youtube-Dl"
-                                IsChecked="{c:Binding !Config.IsYouGet}" />
+                                IsChecked="{Binding Config.IsYoutubeDl}" />
                         </StackPanel>
                         <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                             <CheckBox Content="下载列表" IsChecked="{Binding Config.IsPlaylist}" />
