@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using YtbDownloader.Core.Common;
 using YtbDownloader.Core.Interfaces;
 
 namespace YtbDownloader.ViewModels
@@ -23,7 +22,7 @@ namespace YtbDownloader.ViewModels
 
         public bool IsDebug { get; set; }
 
-        public DownloadEngine Engine { get; set; }
+        public bool IsYouGet { get; set; }
 
         public ConfigViewModel()
         {
@@ -34,7 +33,7 @@ namespace YtbDownloader.ViewModels
             OutputDir = Properties.Settings.Default.OutputDir;
             IsPlaylist = Properties.Settings.Default.IsPlaylist;
             IsDebug = Properties.Settings.Default.IsDebug;
-            Engine = Properties.Settings.Default.Engine;
+            IsYouGet = Properties.Settings.Default.IsYouGet;
         }
 
         ~ConfigViewModel()
@@ -46,7 +45,7 @@ namespace YtbDownloader.ViewModels
             Properties.Settings.Default.OutputDir = OutputDir;
             Properties.Settings.Default.IsPlaylist = IsPlaylist;
             Properties.Settings.Default.IsDebug = IsDebug;
-            Properties.Settings.Default.Engine = Engine;
+            Properties.Settings.Default.IsYouGet = IsYouGet;
             Properties.Settings.Default.Save();
         }
     }

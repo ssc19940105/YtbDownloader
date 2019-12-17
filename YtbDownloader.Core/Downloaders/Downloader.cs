@@ -66,7 +66,7 @@ namespace YtbDownloader.Core.Downloaders
         {
             if (config != null)
             {
-                if (config.Engine == DownloadEngine.YouGet)
+                if (config.IsYouGet)
                 {
                     var option = new OptionG()
                     {

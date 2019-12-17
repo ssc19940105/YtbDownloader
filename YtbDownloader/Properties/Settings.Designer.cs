@@ -107,13 +107,13 @@ namespace YtbDownloader.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("YouGet")]
-        public global::YtbDownloader.Core.Common.DownloadEngine Engine {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsYouGet {
             get {
-                return ((global::YtbDownloader.Core.Common.DownloadEngine)(this["Engine"]));
+                return ((bool)(this["IsYouGet"]));
             }
             set {
-                this["Engine"] = value;
+                this["IsYouGet"] = value;
             }
         }
     }
