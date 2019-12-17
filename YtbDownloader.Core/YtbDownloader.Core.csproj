@@ -44,6 +44,8 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DownloadEngine.cs" />
+    <Compile Include="Common\DownloaderFactory.cs" />
     <Compile Include="Interfaces\IConfig.cs" />
     <Compile Include="Downloaders\Downloader.cs" />
     <Compile Include="Options\OptionG.cs" />

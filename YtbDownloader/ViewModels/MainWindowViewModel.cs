@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xaml.Behaviors.Core;
-using Ninject;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -10,7 +9,6 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Input;
 using YtbDownloader.Core.Common;
-using YtbDownloader.Core.Downloaders;
 using YtbDownloader.Core.Interfaces;
 
 namespace YtbDownloader.ViewModels
@@ -151,14 +149,10 @@ namespace YtbDownloader.ViewModels
 
         private void InitializeDownloader()
         {
-            using (var kernel = new StandardKernel())
-            {
-                kernel.Bind<IDownloader>().To<Downloader>();
-                downloader = kernel.Get<IDownloader>();
-                downloader.LogReceived += Downloader_LogReceived;
-                downloader.DowndloadStart += Downloader_DowndloadStart;
-                downloader.DowndloadComplete += Downloader_DowndloadComplete;
-            }
+            downloader = DownloaderFactory.Create();
+            downloader.LogReceived += Downloader_LogReceived;
+            downloader.DowndloadStart += Downloader_DowndloadStart;
+            downloader.DowndloadComplete += Downloader_DowndloadComplete;
         }
 
         private void Downloader_LogReceived(object sender, LogReceivedEventArgs e)

@@ -23,8 +23,8 @@
     <Setting Name="IsDebug" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="IsYouGet" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+    <Setting Name="Engine" Type="YtbDownloader.Core.Common.DownloadEngine" Scope="User">
+      <Value Profile="(Default)">YouGet</Value>
     </Setting>
   </Settings>
 </SettingsFile>

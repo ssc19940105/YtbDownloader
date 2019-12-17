@@ -1,4 +1,5 @@
 ﻿using System;
+using YtbDownloader.Core.Common;
 
 namespace YtbDownloader.Core.Interfaces
 {
@@ -18,6 +19,6 @@ namespace YtbDownloader.Core.Interfaces
 
         bool IsDebug { get; set; }
 
-        bool IsYouGet { get; set; }
+        DownloadEngine Engine { get; set; }
     }
 }

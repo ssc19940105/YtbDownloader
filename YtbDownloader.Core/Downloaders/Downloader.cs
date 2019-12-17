@@ -14,8 +14,8 @@ namespace YtbDownloader.Core.Downloaders
 {
     public class Downloader : IDownloader, IDisposable
     {
-        private bool IsYouGet;
         private Process process;
+        private DownloadEngine engine;
         private const string AudioFormat = "bestaudio[ext=m4a]/bestaudio";
         private const string VideoFormat = "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best";
         private const string NoPlaylistOutputTemplate = "%(title)s.%(ext)s";
@@ -67,7 +67,8 @@ namespace YtbDownloader.Core.Downloaders
         {
             if (config != null)
             {
-                if (IsYouGet = config.IsYouGet)
+                engine = config.Engine;
+                if (config.Engine == DownloadEngine.YouGet)
                 {
                     var option = new OptionG()
                     {
@@ -117,8 +118,8 @@ namespace YtbDownloader.Core.Downloaders
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     Arguments = Parser.Default.FormatCommandLine(options),
-                    FileName = IsYouGet ? "you-get" : "youtube-dl",
-                    StandardOutputEncoding = IsYouGet ? Encoding.UTF8 : Encoding.Default
+                    FileName = engine == DownloadEngine.YouGet ? "you-get" : "youtube-dl",
+                    StandardOutputEncoding = engine == DownloadEngine.YouGet ? Encoding.UTF8 : Encoding.Default
                 }
             };
             process.OutputDataReceived += Process_OutputDataReceived;
