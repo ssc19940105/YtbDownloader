@@ -21,7 +21,7 @@
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
-            <i:CallMethodAction MethodName="WindowClosing" TargetObject="{Binding}" />
+            <i:InvokeCommandAction Command="{Binding WindowClosingCommand}" PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
@@ -55,7 +55,7 @@
                 <Button
                     Grid.Column="5"
                     Background="White"
-                    Command="{Binding StartAction}"
+                    Command="{Binding StartCommand}"
                     Content="{Binding StartButtonContent}" />
                 <TextBlock
                     Grid.Row="2"
@@ -71,13 +71,13 @@
                     Grid.Row="2"
                     Grid.Column="3"
                     Background="White"
-                    Command="{Binding BrowseOutputDirAction}"
+                    Command="{Binding OpenOutputDirCommand}"
                     Content="打开输出目录" />
                 <Button
                     Grid.Row="2"
                     Grid.Column="5"
                     Background="White"
-                    Command="{Binding BrowseAction}"
+                    Command="{Binding SetOutputDirCommand}"
                     Content="浏览" />
                 <CheckBox
                     Grid.Row="4"
@@ -138,13 +138,13 @@
                     Grid.Column="3"
                     Margin="10,0,0,0"
                     Background="White"
-                    Command="{Binding SaveLogAction}"
+                    Command="{Binding SaveLogCommand}"
                     Content="保存日志" />
                 <Button
                     Grid.Row="8"
                     Grid.Column="5"
                     Background="White"
-                    Command="{Binding ClearLogAction}"
+                    Command="{Binding ClearLogCommand}"
                     Content="清除日志" />
             </Grid>
         </Border>

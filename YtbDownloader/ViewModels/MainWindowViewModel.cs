@@ -1,5 +1,5 @@
-﻿using Microsoft.Xaml.Behaviors.Core;
-using Ninject;
+﻿using Ninject;
+using Prism.Commands;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -29,17 +29,19 @@ namespace YtbDownloader.ViewModels
 
         public double ProgressValue { get; private set; }
 
-        public ICommand BrowseAction { get; }
+        public ICommand SetOutputDirCommand { get; }
 
-        public ICommand StartAction { get; }
+        public ICommand StartCommand { get; }
 
-        public ICommand BrowseOutputDirAction { get; }
+        public ICommand OpenOutputDirCommand { get; }
 
-        public ICommand ClearLogAction { get; }
+        public ICommand ClearLogCommand { get; }
 
-        public ICommand SaveLogAction { get; }
+        public ICommand SaveLogCommand { get; }
 
-        private void BrowseOutputDir()
+        public ICommand WindowClosingCommand { get; }
+
+        private void OpenOutputDir()
         {
             if (Directory.Exists(Config.OutputDir))
             {
@@ -78,7 +80,7 @@ namespace YtbDownloader.ViewModels
             }
         }
 
-        private void Browse()
+        private void SetOutputDir()
         {
             using (var dialog = new FolderBrowserDialog())
             {
@@ -126,7 +128,7 @@ namespace YtbDownloader.ViewModels
             return url != null ? Regex.IsMatch(url, @"^http(s{0,1})://([\w-]+\.)+[\w-]+(/[\w-./?%&=]*)?$") : false;
         }
 
-        public void WindowClosing(object sender, CancelEventArgs e)
+        private void WindowClosing(CancelEventArgs e)
         {
             if (downloader?.IsBusy == true && e != null &&
                 DialogResult.Yes != MessageBox.Show(Properties.Resources.ExitWarning,
@@ -142,11 +144,12 @@ namespace YtbDownloader.ViewModels
         {
             InitializeDownloader();
             Config = new ConfigViewModel();
-            StartAction = new ActionCommand(Start);
-            BrowseAction = new ActionCommand(Browse);
-            BrowseOutputDirAction = new ActionCommand(BrowseOutputDir);
-            ClearLogAction = new ActionCommand(() => LogContent = string.Empty);
-            SaveLogAction = new ActionCommand(SaveLog);
+            StartCommand = new DelegateCommand(Start);
+            SaveLogCommand = new DelegateCommand(SaveLog);
+            SetOutputDirCommand = new DelegateCommand(SetOutputDir);
+            OpenOutputDirCommand = new DelegateCommand(OpenOutputDir);
+            ClearLogCommand = new DelegateCommand(() => LogContent = string.Empty);
+            WindowClosingCommand = new DelegateCommand<CancelEventArgs>(WindowClosing);
         }
 
         private void InitializeDownloader()
