@@ -143,8 +143,8 @@ namespace YtbDownloader.ViewModels
 
         public MainViewModel()
         {
-            InitializeDownloader();
             Config = new Config();
+            InitializeDownloader();
             StartCommand = new DelegateCommand(Start);
             SaveLogCommand = new DelegateCommand(SaveLog);
             SetOutputDirCommand = new DelegateCommand(SetOutputDir);
