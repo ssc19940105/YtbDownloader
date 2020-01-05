@@ -12,16 +12,17 @@ using System.Windows.Input;
 using YtbDownloader.Core.Common;
 using YtbDownloader.Core.Downloaders;
 using YtbDownloader.Core.Interfaces;
+using YtbDownloader.Models;
 
 namespace YtbDownloader.ViewModels
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         private IDownloader downloader;
 
-        public ConfigViewModel Config { get; }
+        public IConfig Config { get; }
 
         public string StartButtonContent { get; private set; } = "开始";
 
@@ -140,10 +141,10 @@ namespace YtbDownloader.ViewModels
             }
         }
 
-        public MainWindowViewModel()
+        public MainViewModel()
         {
             InitializeDownloader();
-            Config = new ConfigViewModel();
+            Config = new Config();
             StartCommand = new DelegateCommand(Start);
             SaveLogCommand = new DelegateCommand(SaveLog);
             SetOutputDirCommand = new DelegateCommand(SetOutputDir);

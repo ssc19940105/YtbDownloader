@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using YtbDownloader.Core.Interfaces;
 
-namespace YtbDownloader.ViewModels
+namespace YtbDownloader.Models
 {
-    public class ConfigViewModel : INotifyPropertyChanged, IConfig
+    public class Config : INotifyPropertyChanged, IConfig
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -26,7 +26,7 @@ namespace YtbDownloader.ViewModels
 
         public bool IsYoutubeDl { get; set; }
 
-        public ConfigViewModel()
+        public Config()
         {
             IsProxy = Properties.Settings.Default.IsProxy;
             ProxyUrl = Properties.Settings.Default.ProxyUrl;
@@ -39,7 +39,7 @@ namespace YtbDownloader.ViewModels
             IsYoutubeDl = !IsYouGet;
         }
 
-        ~ConfigViewModel()
+        ~Config()
         {
             Properties.Settings.Default.IsProxy = IsProxy;
             Properties.Settings.Default.ProxyUrl = ProxyUrl;
