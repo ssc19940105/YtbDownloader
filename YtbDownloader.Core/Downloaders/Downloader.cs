@@ -120,8 +120,8 @@ namespace YtbDownloader.Core.Downloaders
                     StandardOutputEncoding = option is OptionG ? Encoding.UTF8 : Encoding.Default
                 }
             };
-            process.OutputDataReceived += Process_OutputDataReceived;
-            process.ErrorDataReceived += Process_ErrorDataReceived;
+            process.OutputDataReceived += Process_DataReceived;
+            process.ErrorDataReceived += Process_DataReceived;
             process.Exited += Process_Exited;
         }
 
@@ -149,15 +149,7 @@ namespace YtbDownloader.Core.Downloaders
             }
         }
 
-        private void Process_ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(e.Data))
-            {
-                OnLogReceived(e.Data);
-            }
-        }
-
-        private void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        private void Process_DataReceived(object sender, DataReceivedEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(e.Data))
             {
