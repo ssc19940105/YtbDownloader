@@ -47,7 +47,7 @@ namespace YtbDownloader.ViewModels
         {
             if (Directory.Exists(Config.OutputDir))
             {
-                Process.Start(Config.OutputDir);
+                Process.Start("explorer", Config.OutputDir);
             }
             else
             {
