@@ -13,6 +13,7 @@ using YtbDownloader.Core.Common;
 using YtbDownloader.Core.Downloaders;
 using YtbDownloader.Core.Interfaces;
 using YtbDownloader.Models;
+using YtbDownloader.Validators;
 
 namespace YtbDownloader.ViewModels
 {
@@ -100,33 +101,20 @@ namespace YtbDownloader.ViewModels
             }
             else
             {
-                if (!IsValidDownloadUrl(Config.DownloadUrl?.OriginalString))
-                {
-                    LogContent += $"{new LogReceivedEventArgs(Properties.Resources.CheckDownloadUrl)}\n";
-                }
-                else if (!Directory.Exists(Config.OutputDir))
-                {
-                    LogContent += $"{new LogReceivedEventArgs(Properties.Resources.CheckOutputDir)}\n";
-                }
-                else if (Config.IsProxy == true && !IsValidProxyUrl(Config.ProxyUrl?.OriginalString))
-                {
-                    LogContent += $"{new LogReceivedEventArgs(Properties.Resources.CheckProxyUrl)}\n";
-                }
-                else
+                var validator = new ConfigValidator();
+                var result = validator.Validate(Config);
+                if (result.IsValid)
                 {
                     downloader.Download(Config);
                 }
+                else
+                {
+                    foreach (var failure in result.Errors)
+                    {
+                        LogContent += $"{new LogReceivedEventArgs(failure.ErrorMessage)}\n";
+                    }
+                }
             }
-        }
-
-        private static bool IsValidProxyUrl(string url)
-        {
-            return url != null ? Regex.IsMatch(url, @"^(http(s{0,1})|socks5)://([\w-]+\.)+[\w-]+:\d+(/[\w-./?%&=]*)?$") : false;
-        }
-
-        private static bool IsValidDownloadUrl(string url)
-        {
-            return url != null ? Regex.IsMatch(url, @"^http(s{0,1})://([\w-]+\.)+[\w-]+(/[\w-./?%&=]*)?$") : false;
         }
 
         private void WindowClosing(CancelEventArgs e)
