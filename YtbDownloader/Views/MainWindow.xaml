@@ -11,7 +11,7 @@
     Height="600"
     mc:Ignorable="d">
     <Window.DataContext>
-        <viewmodels:MainWindowViewModel />
+        <viewmodels:MainViewModel />
     </Window.DataContext>
     <Window.Resources>
         <Style x:Key="NoWrapTextBox" TargetType="TextBox">
