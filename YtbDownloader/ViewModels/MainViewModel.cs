@@ -19,9 +19,13 @@ namespace YtbDownloader.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private IDownloader downloader;
+
+#pragma warning disable CS0067
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private IDownloader downloader;
+#pragma warning restore CS0067
 
         public IConfig Config { get; }
 
