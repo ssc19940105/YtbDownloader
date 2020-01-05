@@ -101,8 +101,7 @@ namespace YtbDownloader.ViewModels
             }
             else
             {
-                var validator = new ConfigValidator();
-                var result = validator.Validate(Config);
+                var result = ConfigValidator.Instance.Validate(Config);
                 if (result.IsValid)
                 {
                     downloader.Download(Config);

@@ -12,7 +12,25 @@ namespace YtbDownloader.Validators
     {
 #pragma warning restore CA1710
 
-        public ConfigValidator()
+        private static ConfigValidator instance = null;
+        private static readonly object _lock = new object();
+
+        public static ConfigValidator Instance
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new ConfigValidator();
+                    }
+                    return instance;
+                }
+            }
+        }
+
+        private ConfigValidator()
         {
             RuleFor(x => x.OutputDir).Must(path => Directory.Exists(path)).WithMessage(Properties.Resources.CheckOutputDir);
             RuleFor(x => x.DownloadUrl).Must(IsValidDownloadUrl).WithMessage(Properties.Resources.CheckDownloadUrl);
