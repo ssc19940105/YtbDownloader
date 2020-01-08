@@ -6,7 +6,11 @@ namespace YtbDownloader.Models
 {
     public class Config : INotifyPropertyChanged, IConfig
     {
+#pragma warning disable CS0067
+
         public event PropertyChangedEventHandler PropertyChanged;
+
+#pragma warning restore CS0067
 
         public bool IsProxy { get; set; }
 
