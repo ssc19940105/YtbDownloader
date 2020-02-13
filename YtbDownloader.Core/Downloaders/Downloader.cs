@@ -53,12 +53,15 @@ namespace YtbDownloader.Core.Downloaders
         {
             if (IsBusy)
             {
-                NativeMethods.AttachConsole((uint)process.Id);
-                NativeMethods.SetConsoleCtrlHandler(null, true);
-                NativeMethods.GenerateConsoleCtrlEvent(CtrlTypes.CTRL_C_EVENT, 0);
-                process.WaitForExit(2000);
-                NativeMethods.FreeConsole();
-                NativeMethods.SetConsoleCtrlHandler(null, false);
+                Task.Run(() =>
+                {
+                    NativeMethods.AttachConsole((uint)process.Id);
+                    NativeMethods.SetConsoleCtrlHandler(null, true);
+                    NativeMethods.GenerateConsoleCtrlEvent(CtrlTypes.CTRL_C_EVENT, 0);
+                    process.WaitForExit(2000);
+                    NativeMethods.FreeConsole();
+                    NativeMethods.SetConsoleCtrlHandler(null, false);
+                });
             }
         }
 
