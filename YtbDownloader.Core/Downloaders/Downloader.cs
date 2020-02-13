@@ -113,11 +113,11 @@ namespace YtbDownloader.Core.Downloaders
                 {
                     CreateNoWindow = true,
                     UseShellExecute = false,
-                    RedirectStandardOutput = true,
                     RedirectStandardError = true,
+                    RedirectStandardOutput = true,
+                    StandardOutputEncoding = Encoding.UTF8,
                     Arguments = Parser.Default.FormatCommandLine(option),
                     FileName = option is OptionG ? "you-get" : "youtube-dl",
-                    StandardOutputEncoding = option is OptionG ? Encoding.UTF8 : Encoding.Default
                 }
             };
             process.OutputDataReceived += Process_DataReceived;
