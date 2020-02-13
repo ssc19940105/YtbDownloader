@@ -159,14 +159,12 @@ namespace YtbDownloader.ViewModels
         private void Downloader_LogReceived(object sender, LogReceivedEventArgs e)
         {
             var match = Regex.Match(e.EventMessage, @"\d+\.?\d+%");
-            if (match.Success)
+            if (match.Success && (e.EventMessage.StartsWith("[download]",StringComparison.CurrentCulture)
+                || e.EventMessage.StartsWith(match.Value,StringComparison.CurrentCulture)))
             {
                 ProgressValue = double.Parse(match.Value.Split('%')[0], CultureInfo.CurrentCulture);
             }
-            else
-            {
-                LogContent += $"{e}\n";
-            }
+            LogContent += $"{e}\n";
         }
 
         private void Downloader_DowndloadStart(object sender, EventArgs e)
