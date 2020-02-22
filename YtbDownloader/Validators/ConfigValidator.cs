@@ -33,9 +33,9 @@ namespace YtbDownloader.Validators
 
         private ConfigValidator()
         {
-            RuleFor(x => x.DownloadUrl).Must(IsValidDownloadUrl).WithMessage(ResourceHelper.FindResource("CheckDownloadUrl"));
-            RuleFor(x => x.OutputDir).Must(path => Directory.Exists(path)).WithMessage(ResourceHelper.FindResource("CheckOutputDir"));
-            RuleFor(x => x.ProxyUrl).Must(IsValidProxyUrl).When(x => x.IsProxy).WithMessage(ResourceHelper.FindResource("CheckProxyUrl"));
+            RuleFor(x => x.DownloadUrl).Must(IsValidDownloadUrl).WithMessage(ResourceHelper.FindResource("CheckDownloadUrlMessage"));
+            RuleFor(x => x.OutputDir).Must(path => Directory.Exists(path)).WithMessage(ResourceHelper.FindResource("CheckOutputDirMessage"));
+            RuleFor(x => x.ProxyUrl).Must(IsValidProxyUrl).When(x => x.IsProxy).WithMessage(ResourceHelper.FindResource("CheckProxyUrlMessage"));
         }
 
         private static bool IsValidProxyUrl(Uri url)

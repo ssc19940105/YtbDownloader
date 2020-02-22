@@ -17,10 +17,10 @@
     <sys:String x:Key="OpenOutputDirHelpText">打开输出目录</sys:String>
     <sys:String x:Key="SaveLogBtnHelpText">保存日志</sys:String>
     <sys:String x:Key="ClearLogBtnHelpText">清除日志</sys:String>
-    <sys:String x:Key="CheckDownloadUrl">请检查输入的下载地址是否正确</sys:String>
-    <sys:String x:Key="CheckOutputDir">请检查输入的输出目录是否正确</sys:String>
-    <sys:String x:Key="CheckProxyUrl">请检查输入的代理地址是否正确</sys:String>
-    <sys:String x:Key="ExitWarning">下载过程中退出程序可能导致下载的文件损坏，是否继续</sys:String>
+    <sys:String x:Key="CheckDownloadUrlMessage">请检查输入的下载地址是否正确</sys:String>
+    <sys:String x:Key="CheckOutputDirMessage">请检查输入的输出目录是否正确</sys:String>
+    <sys:String x:Key="CheckProxyUrlMessage">请检查输入的代理地址是否正确</sys:String>
+    <sys:String x:Key="ExitWarningMessage">下载过程中退出程序可能导致下载的文件损坏，是否继续</sys:String>
     <sys:String x:Key="ExitWarningCaption">Warning</sys:String>
     <sys:String x:Key="SaveLogCompletionCaption">Infomation</sys:String>
     <sys:String x:Key="SaveLogCompletionMessage">日志保存成功</sys:String>

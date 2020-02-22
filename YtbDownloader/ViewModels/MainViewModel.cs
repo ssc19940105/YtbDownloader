@@ -125,7 +125,7 @@ namespace YtbDownloader.ViewModels
         private void WindowClosing(CancelEventArgs e)
         {
             if (downloader?.IsBusy == true && e != null &&
-                DialogResult.Yes != MessageBox.Show(ResourceHelper.FindResource("ExitWarning"),
+                DialogResult.Yes != MessageBox.Show(ResourceHelper.FindResource("ExitWarningMessage"),
                                                     ResourceHelper.FindResource("ExitWarningCaption"),
                                                     MessageBoxButtons.YesNo,
                                                     MessageBoxIcon.Warning))
@@ -174,12 +174,12 @@ namespace YtbDownloader.ViewModels
 
         private void Downloader_DowndloadStart(object sender, EventArgs e)
         {
-            StartButtonContent = "停止";
+            StartButtonContent = ResourceHelper.FindResource("StopBtnHelpText");
         }
 
         private void Downloader_DowndloadComplete(object sender, EventArgs e)
         {
-            StartButtonContent = "开始";
+            StartButtonContent = ResourceHelper.FindResource("StartBtnHelpText");
         }
     }
 }
