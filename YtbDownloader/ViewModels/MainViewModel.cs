@@ -22,6 +22,8 @@ namespace YtbDownloader.ViewModels
     {
         private IDownloader downloader;
 
+        private readonly ConfigManger configManger;
+
 #pragma warning disable CS0067
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -132,12 +134,14 @@ namespace YtbDownloader.ViewModels
             {
                 e.Cancel = true;
             }
+            configManger.SaveConfig(Config);
         }
 
         public MainViewModel()
         {
-            Config = new Config();
             InitializeDownloader();
+            configManger = new ConfigManger("Config.json");
+            Config = configManger.LoadConfig<Config>();
             StartCommand = new DelegateCommand(Start);
             SaveLogCommand = new DelegateCommand(SaveLog);
             SetOutputDirCommand = new DelegateCommand(SetOutputDir);
