@@ -21,8 +21,8 @@
     <system:String x:Key="CheckOutputDirMessage">请检查输入的输出目录是否正确</system:String>
     <system:String x:Key="CheckProxyUrlMessage">请检查输入的代理地址是否正确</system:String>
     <system:String x:Key="ExitWarningMessage">下载过程中退出程序可能导致下载的文件损坏，是否继续</system:String>
-    <system:String x:Key="ExitWarningCaption">Warning</system:String>
-    <system:String x:Key="SaveLogCompletionCaption">Infomation</system:String>
+    <system:String x:Key="ExitWarningCaption">警告</system:String>
+    <system:String x:Key="SaveLogCompletionCaption">信息</system:String>
     <system:String x:Key="SaveLogCompletionMessage">日志保存成功</system:String>
     <system:String x:Key="SaveLogDialogFilter">文本文档(*.log)|*.log</system:String>
     <system:String x:Key="SaveLogDialogTitle">选择保存位置</system:String>
