@@ -28,8 +28,6 @@ namespace YtbDownloader.Models
 
         public bool IsYouGet { get; set; }
 
-        public bool IsYoutubeDl { get; set; }
-
         public Config()
         {
             IsProxy = Properties.Settings.Default.IsProxy;
@@ -40,7 +38,6 @@ namespace YtbDownloader.Models
             IsPlaylist = Properties.Settings.Default.IsPlaylist;
             IsDebug = Properties.Settings.Default.IsDebug;
             IsYouGet = Properties.Settings.Default.IsYouGet;
-            IsYoutubeDl = !IsYouGet;
         }
 
         ~Config()
