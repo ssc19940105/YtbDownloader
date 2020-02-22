@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using YtbDownloader.Common;
 using YtbDownloader.Core.Interfaces;
 
 namespace YtbDownloader.Validators
@@ -32,9 +33,9 @@ namespace YtbDownloader.Validators
 
         private ConfigValidator()
         {
-            RuleFor(x => x.DownloadUrl).Must(IsValidDownloadUrl).WithMessage(Properties.Resources.CheckDownloadUrl);
-            RuleFor(x => x.OutputDir).Must(path => Directory.Exists(path)).WithMessage(Properties.Resources.CheckOutputDir);
-            RuleFor(x => x.ProxyUrl).Must(IsValidProxyUrl).When(x => x.IsProxy).WithMessage(Properties.Resources.CheckProxyUrl);
+            RuleFor(x => x.DownloadUrl).Must(IsValidDownloadUrl).WithMessage(ResourceHelper.FindResource("CheckDownloadUrl"));
+            RuleFor(x => x.OutputDir).Must(path => Directory.Exists(path)).WithMessage(ResourceHelper.FindResource("CheckOutputDir"));
+            RuleFor(x => x.ProxyUrl).Must(IsValidProxyUrl).When(x => x.IsProxy).WithMessage(ResourceHelper.FindResource("CheckProxyUrl"));
         }
 
         private static bool IsValidProxyUrl(Uri url)

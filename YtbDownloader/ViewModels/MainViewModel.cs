@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Input;
+using YtbDownloader.Common;
 using YtbDownloader.Core.Common;
 using YtbDownloader.Core.Downloaders;
 using YtbDownloader.Core.Interfaces;
@@ -29,7 +30,8 @@ namespace YtbDownloader.ViewModels
 
         public IConfig Config { get; }
 
-        public string StartButtonContent { get; private set; } = "开始";
+        public string StartButtonContent { get; private set; }
+            = ResourceHelper.FindResource("StartBtnHelpText");
 
         public string LogContent { get; private set; }
 
@@ -55,7 +57,7 @@ namespace YtbDownloader.ViewModels
             }
             else
             {
-                LogContent += $"{new LogReceivedEventArgs(Properties.Resources.CheckOutputDir)}\n";
+                LogContent += $"{new LogReceivedEventArgs(ResourceHelper.FindResource("CheckOutputDir"))}\n";
             }
         }
 
@@ -64,8 +66,8 @@ namespace YtbDownloader.ViewModels
             using (var dialog = new SaveFileDialog()
             {
                 FileName = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss", CultureInfo.CurrentCulture),
-                Filter = Properties.Resources.SaveLogDialogFilter,
-                Title = Properties.Resources.SaveLogDialogTitle
+                Filter = ResourceHelper.FindResource("SaveLogDialogFilter"),
+                Title = ResourceHelper.FindResource("SaveLogDialogTitle")
             })
             {
                 if (DialogResult.OK == dialog.ShowDialog())
@@ -78,8 +80,8 @@ namespace YtbDownloader.ViewModels
                             file.Write(content, 0, content.Length);
                         }
                     }
-                    MessageBox.Show(Properties.Resources.SaveLogCompletionMessage,
-                                    Properties.Resources.SaveLogCompletionCaption,
+                    MessageBox.Show(ResourceHelper.FindResource("SaveLogCompletionMessage"),
+                                    ResourceHelper.FindResource("SaveLogCompletionCaption"),
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Information);
                 }
@@ -123,8 +125,8 @@ namespace YtbDownloader.ViewModels
         private void WindowClosing(CancelEventArgs e)
         {
             if (downloader?.IsBusy == true && e != null &&
-                DialogResult.Yes != MessageBox.Show(Properties.Resources.ExitWarning,
-                                                    Properties.Resources.ExitWarningCaption,
+                DialogResult.Yes != MessageBox.Show(ResourceHelper.FindResource("ExitWarning"),
+                                                    ResourceHelper.FindResource("ExitWarningCaption"),
                                                     MessageBoxButtons.YesNo,
                                                     MessageBoxIcon.Warning))
             {
@@ -159,8 +161,8 @@ namespace YtbDownloader.ViewModels
         private void Downloader_LogReceived(object sender, LogReceivedEventArgs e)
         {
             var match = Regex.Match(e.EventMessage, @"\s*\d+\.?\d+%");
-            if (match.Success && (e.EventMessage.StartsWith("[download]",StringComparison.CurrentCulture)
-                || e.EventMessage.StartsWith(match.Value,StringComparison.CurrentCulture)))
+            if (match.Success && (e.EventMessage.StartsWith("[download]", StringComparison.CurrentCulture)
+                || e.EventMessage.StartsWith(match.Value, StringComparison.CurrentCulture)))
             {
                 ProgressValue = double.Parse(match.Value.Split('%')[0], CultureInfo.CurrentCulture);
             }

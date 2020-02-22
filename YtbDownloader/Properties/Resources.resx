@@ -117,31 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CheckDownloadUrl" xml:space="preserve">
-    <value>请检查输入的下载地址是否正确</value>
-  </data>
-  <data name="CheckOutputDir" xml:space="preserve">
-    <value>请检查输入的输出目录是否正确</value>
-  </data>
-  <data name="CheckProxyUrl" xml:space="preserve">
-    <value>请检查输入的代理地址是否正确</value>
-  </data>
-  <data name="ExitWarning" xml:space="preserve">
-    <value>下载过程中退出程序可能导致下载的文件损坏，是否继续</value>
-  </data>
-  <data name="ExitWarningCaption" xml:space="preserve">
-    <value>Warning</value>
-  </data>
-  <data name="SaveLogCompletionCaption" xml:space="preserve">
-    <value>Infomation</value>
-  </data>
-  <data name="SaveLogCompletionMessage" xml:space="preserve">
-    <value>日志保存成功</value>
-  </data>
-  <data name="SaveLogDialogFilter" xml:space="preserve">
-    <value>文本文档(*.log)|*.log</value>
-  </data>
-  <data name="SaveLogDialogTitle" xml:space="preserve">
-    <value>选择保存位置</value>
-  </data>
 </root>

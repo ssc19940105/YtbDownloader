@@ -90,6 +90,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\ResourceHelper.cs" />
     <Compile Include="Models\Config.cs" />
     <Compile Include="Validators\ConfigValidator.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
