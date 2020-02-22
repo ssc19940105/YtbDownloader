@@ -1,0 +1,20 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="WinTitle">YtbDownloader</sys:String>
+    <sys:String x:Key="DownloadUrlHelpText">下载地址：</sys:String>
+    <sys:String x:Key="OutputDirHelpText">输出目录：</sys:String>
+    <sys:String x:Key="EnableProxyHelpText">启用代理</sys:String>
+    <sys:String x:Key="MoreOptionHelpText">更多选项</sys:String>
+    <sys:String x:Key="EngineSelectionHelpText">工具选择：</sys:String>
+    <sys:String x:Key="IsPlaylistHelpText">下载列表</sys:String>
+    <sys:String x:Key="IsIsAudioOnlyHelpText">仅下载音频（Youtube-DL专有）</sys:String>
+    <sys:String x:Key="IsDebugHelpText">调试模式</sys:String>
+    <sys:String x:Key="StartBtnHelpText">开始</sys:String>
+    <sys:String x:Key="StopBtnHelpText">停止</sys:String>
+    <sys:String x:Key="SetOutputDirHelpText">浏览</sys:String>
+    <sys:String x:Key="OpenOutputDirHelpText">打开输出目录</sys:String>
+    <sys:String x:Key="SaveLogBtnHelpText">保存日志</sys:String>
+    <sys:String x:Key="ClearLogBtnHelpText">清除日志</sys:String>
+</ResourceDictionary>
