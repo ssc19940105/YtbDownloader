@@ -126,13 +126,14 @@ namespace YtbDownloader.ViewModels
 
         private void WindowClosing(CancelEventArgs e)
         {
-            if (downloader?.IsBusy == true && e != null &&
+            if (downloader?.IsBusy == true &&
                 DialogResult.Yes != MessageBox.Show(ResourceHelper.FindResource("ExitWarningMessage"),
                                                     ResourceHelper.FindResource("ExitWarningCaption"),
                                                     MessageBoxButtons.YesNo,
                                                     MessageBoxIcon.Warning))
             {
                 e.Cancel = true;
+                return;
             }
             configManger.SaveConfig(Config);
         }
