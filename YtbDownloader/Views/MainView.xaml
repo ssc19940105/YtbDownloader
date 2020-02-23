@@ -11,6 +11,9 @@
     Width="900"
     Height="600"
     mc:Ignorable="d">
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo ProgressState="Normal" ProgressValue="{cb:Binding ProgressValue/100.0}" />
+    </Window.TaskbarItemInfo>
     <Window.DataContext>
         <viewmodels:MainViewModel />
     </Window.DataContext>
