@@ -24,7 +24,8 @@ namespace YtbDownloader.Common
             else
             {
                 var input = File.ReadAllText(configPath);
-                return serializer.Deserialize<T>(input);
+                var config = serializer.Deserialize<T>(input);
+                return config != null ? config : new T();
             }
         }
 
