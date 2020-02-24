@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Text;
 using System.Web.Script.Serialization;
 
 namespace YtbDownloader.Common
@@ -31,12 +30,7 @@ namespace YtbDownloader.Common
 
         public void SaveConfig<T>(T config)
         {
-            using (var stream = new FileStream(configPath, FileMode.Create))
-            {
-                var output = serializer.Serialize(config);
-                var content = Encoding.UTF8.GetBytes(output);
-                stream.Write(content, 0, content.Length);
-            }
+            File.WriteAllText(configPath, serializer.Serialize(config));
         }
     }
 }
