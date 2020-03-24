@@ -9,7 +9,7 @@
     <system:String x:Key="MoreOptionHelpText">更多选项</system:String>
     <system:String x:Key="EngineSelectionHelpText">工具选择：</system:String>
     <system:String x:Key="IsPlaylistHelpText">下载列表</system:String>
-    <system:String x:Key="IsIsAudioOnlyHelpText">仅下载音频（Youtube-DL专有）</system:String>
+    <system:String x:Key="IsIsAudioOnlyHelpText">仅下载音频（仅限YouTube-Dl）</system:String>
     <system:String x:Key="IsDebugHelpText">调试模式</system:String>
     <system:String x:Key="StartBtnHelpText">开始</system:String>
     <system:String x:Key="StopBtnHelpText">停止</system:String>

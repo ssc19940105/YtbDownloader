@@ -106,7 +106,7 @@
                                 IsChecked="{Binding Config.IsYouGet}" />
                             <RadioButton
                                 Margin="10,0,0,0"
-                                Content="Youtube-Dl"
+                                Content="YouTube-Dl"
                                 IsChecked="{cb:Binding !Config.IsYouGet}" />
                         </StackPanel>
                         <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
@@ -114,7 +114,8 @@
                             <CheckBox
                                 Margin="10,0,0,0"
                                 Content="{StaticResource IsIsAudioOnlyHelpText}"
-                                IsChecked="{Binding Config.IsAudioOnly}" />
+                                IsChecked="{Binding Config.IsAudioOnly}"
+                                IsEnabled="{cb:Binding !Config.IsYouGet}" />
                             <CheckBox
                                 Margin="10,0,0,0"
                                 Content="{StaticResource IsDebugHelpText}"
