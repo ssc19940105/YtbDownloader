@@ -118,9 +118,9 @@ namespace YtbDownloader.Core.Downloaders
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
-                    StandardOutputEncoding = Encoding.Default,
                     Arguments = Parser.Default.FormatCommandLine(option),
                     FileName = option is OptionG ? "you-get" : "youtube-dl",
+                    StandardOutputEncoding = option is OptionG ? Encoding.Default : CodePagesEncodingProvider.Instance.GetEncoding(936)
                 }
             };
             process.OutputDataReceived += Process_DataReceived;
