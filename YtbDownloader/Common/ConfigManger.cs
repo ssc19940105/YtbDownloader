@@ -1,17 +1,15 @@
 ﻿using System.IO;
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace YtbDownloader.Common
 {
     public class ConfigManger
     {
         private readonly string configPath;
-        private readonly JavaScriptSerializer serializer;
 
         public ConfigManger(string path)
         {
             configPath = path;
-            serializer = new JavaScriptSerializer();
         }
 
         public T LoadConfig<T>() where T : new()
@@ -23,14 +21,14 @@ namespace YtbDownloader.Common
             else
             {
                 var input = File.ReadAllText(configPath);
-                var config = serializer.Deserialize<T>(input);
+                var config = JsonConvert.DeserializeObject<T>(input);
                 return config != null ? config : new T();
             }
         }
 
         public void SaveConfig<T>(T config)
         {
-            File.WriteAllText(configPath, serializer.Serialize(config));
+            File.WriteAllText(configPath, JsonConvert.SerializeObject(config));
         }
     }
 }

@@ -59,45 +59,41 @@ namespace YtbDownloader.ViewModels
             }
             else
             {
-                LogContent += $"{new LogReceivedEventArgs(ResourceHelper.FindResource("CheckOutputDir"))}\n";
+                LogContent += $"{new LogReceivedEventArgs(ResourceHelper.FindResource("CheckOutputDirMessage"))}\n";
             }
         }
 
         private void SaveLog()
         {
-            using (var dialog = new SaveFileDialog()
+            using var dialog = new SaveFileDialog()
             {
                 FileName = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss", CultureInfo.CurrentCulture),
                 Filter = ResourceHelper.FindResource("SaveLogDialogFilter"),
                 Title = ResourceHelper.FindResource("SaveLogDialogTitle")
-            })
+            };
+            if (DialogResult.OK == dialog.ShowDialog())
             {
-                if (DialogResult.OK == dialog.ShowDialog())
+                using (var file = File.Create(dialog.FileName))
                 {
-                    using (var file = File.Create(dialog.FileName))
+                    if (!string.IsNullOrWhiteSpace(LogContent))
                     {
-                        if (!string.IsNullOrWhiteSpace(LogContent))
-                        {
-                            var content = Encoding.Default.GetBytes(LogContent);
-                            file.Write(content, 0, content.Length);
-                        }
+                        var content = Encoding.Default.GetBytes(LogContent);
+                        file.Write(content, 0, content.Length);
                     }
-                    MessageBox.Show(ResourceHelper.FindResource("SaveLogCompletionMessage"),
-                                    ResourceHelper.FindResource("SaveLogCompletionCaption"),
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Information);
                 }
+                MessageBox.Show(ResourceHelper.FindResource("SaveLogCompletionMessage"),
+                                ResourceHelper.FindResource("SaveLogCompletionCaption"),
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
             }
         }
 
         private void SetOutputDir()
         {
-            using (var dialog = new FolderBrowserDialog())
+            using var dialog = new FolderBrowserDialog();
+            if (DialogResult.OK == dialog.ShowDialog())
             {
-                if (DialogResult.OK == dialog.ShowDialog())
-                {
-                    Config.OutputDir = dialog.SelectedPath;
-                }
+                Config.OutputDir = dialog.SelectedPath;
             }
         }
 
@@ -153,14 +149,12 @@ namespace YtbDownloader.ViewModels
 
         private void InitializeDownloader()
         {
-            using (var kernel = new StandardKernel())
-            {
-                kernel.Bind<IDownloader>().To<Downloader>();
-                downloader = kernel.Get<IDownloader>();
-                downloader.LogReceived += Downloader_LogReceived;
-                downloader.DowndloadStart += Downloader_DowndloadStart;
-                downloader.DowndloadComplete += Downloader_DowndloadComplete;
-            }
+            using var kernel = new StandardKernel();
+            kernel.Bind<IDownloader>().To<Downloader>();
+            downloader = kernel.Get<IDownloader>();
+            downloader.LogReceived += Downloader_LogReceived;
+            downloader.DowndloadStart += Downloader_DowndloadStart;
+            downloader.DowndloadComplete += Downloader_DowndloadComplete;
         }
 
         private void Downloader_LogReceived(object sender, LogReceivedEventArgs e)
