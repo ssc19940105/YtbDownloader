@@ -26,5 +26,8 @@ namespace YtbDownloader.Core.Win32
 
         [DllImport("kernel32.dll")]
         internal static extern bool FreeConsole();
+
+        [DllImport("kernel32.dll")]
+        internal static extern uint GetACP();
     }
 }

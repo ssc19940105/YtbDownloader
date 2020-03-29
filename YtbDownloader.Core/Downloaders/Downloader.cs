@@ -121,7 +121,7 @@ namespace YtbDownloader.Core.Downloaders
                     RedirectStandardError = true,
                     Arguments = Parser.Default.FormatCommandLine(option),
                     FileName = option is OptionG ? "you-get" : "youtube-dl",
-                    StandardOutputEncoding = option is OptionG ? Encoding.UTF8 : Encoding.GetEncoding(936)
+                    StandardOutputEncoding = option is OptionG ? Encoding.UTF8 : Encoding.GetEncoding((int)NativeMethods.GetACP())
                 }
             };
             process.OutputDataReceived += Process_DataReceived;
