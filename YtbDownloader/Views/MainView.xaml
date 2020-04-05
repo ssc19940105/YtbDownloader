@@ -89,7 +89,7 @@
                     Grid.Row="4"
                     Grid.Column="1"
                     Grid.ColumnSpan="5"
-                    IsEnabled="{Binding IsChecked, ElementName=EnableProxyBox}"
+                    IsEnabled="{Binding Config.IsProxy}"
                     Style="{StaticResource NoWrapTextBox}"
                     Text="{Binding Config.ProxyUrl}" />
                 <Expander
