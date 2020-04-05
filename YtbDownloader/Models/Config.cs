@@ -27,5 +27,7 @@ namespace YtbDownloader.Models
         public bool IsDebug { get; set; }
 
         public bool IsYouGet { get; set; }
+
+        public string SubLangs { get; set; }
     }
 }

@@ -26,4 +26,5 @@
     <system:String x:Key="SaveLogCompletionMessage">日志保存成功</system:String>
     <system:String x:Key="SaveLogDialogFilter">文本文档(*.log)|*.log</system:String>
     <system:String x:Key="SaveLogDialogTitle">选择保存位置</system:String>
+    <system:String x:Key="SaveSubHelpText">下载字幕（仅限YouTube-Dl）</system:String>
 </ResourceDictionary>

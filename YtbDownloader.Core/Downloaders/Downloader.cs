@@ -95,6 +95,7 @@ namespace YtbDownloader.Core.Downloaders
                     InitializeTask(new OptionY()
                     {
                         IsDebug = config.IsDebug,
+                        SubLangs = config.SubLangs,
                         NoPlaylist = !config.IsPlaylist,
                         DownloadUrl = config.DownloadUrl,
                         Format = config.IsAudioOnly ? AudioFormat : VideoFormat,
