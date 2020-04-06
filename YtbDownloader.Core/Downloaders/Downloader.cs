@@ -92,10 +92,9 @@ namespace YtbDownloader.Core.Downloaders
                 }
                 else
                 {
-                    InitializeTask(new OptionY()
+                    var option = new OptionY()
                     {
                         IsDebug = config.IsDebug,
-                        SubLangs = config.SubLangs,
                         NoPlaylist = !config.IsPlaylist,
                         DownloadUrl = config.DownloadUrl,
                         Format = config.IsAudioOnly ? AudioFormat : VideoFormat,
@@ -103,7 +102,12 @@ namespace YtbDownloader.Core.Downloaders
                         OutputTemplate = config.IsPlaylist == true ?
                         Path.Combine(config.OutputDir, PlaylistOutputTemplate) :
                         Path.Combine(config.OutputDir, NoPlaylistOutputTemplate)
-                    });
+                    };
+                    if (config.IsDownloadSubs && string.IsNullOrWhiteSpace(config.SubLangs))
+                    {
+                        option.SubLangs = config.SubLangs;
+                    }
+                    InitializeTask(option);
                 }
                 TaskStart();
             }

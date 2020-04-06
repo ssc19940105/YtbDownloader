@@ -24,7 +24,7 @@ namespace YtbDownloader.Core.Options
         public bool NoPlaylist { get; set; }
 
         [Option("write-auto-sub")]
-        public bool WriteAutoSub { get; set; } = true;
+        public bool WriteAutoSub { get => !string.IsNullOrWhiteSpace(SubLangs); }
 
         [Option("sub-langs")]
         public string SubLangs { get; set; }
