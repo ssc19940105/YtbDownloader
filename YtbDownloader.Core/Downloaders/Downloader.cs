@@ -72,45 +72,55 @@ namespace YtbDownloader.Core.Downloaders
             {
                 if (config.IsYouGet)
                 {
-                    var option = new OptionG()
-                    {
-                        IsDebug = config.IsDebug,
-                        IsPlaylist = config.IsPlaylist,
-                        OutputDir = config.OutputDir,
-                        DownloadUrl = config.DownloadUrl,
-                    };
-
-                    if (config.IsProxy && config.ProxyUrl.Scheme == "socks5")
-                    {
-                        option.SocksProxy = $"{config.ProxyUrl.Host}:{config.ProxyUrl.Port}";
-                    }
-                    else if (config.IsProxy)
-                    {
-                        option.HttpProxy = $"{config.ProxyUrl.Host}:{config.ProxyUrl.Port}";
-                    }
-                    InitializeTask(option);
+                    InitializeTaskG(config);
                 }
                 else
                 {
-                    var option = new OptionY()
-                    {
-                        IsDebug = config.IsDebug,
-                        NoPlaylist = !config.IsPlaylist,
-                        DownloadUrl = config.DownloadUrl,
-                        Format = config.IsAudioOnly ? AudioFormat : VideoFormat,
-                        Proxy = config.IsProxy == true ? config.ProxyUrl : null,
-                        OutputTemplate = config.IsPlaylist == true ?
-                        Path.Combine(config.OutputDir, PlaylistOutputTemplate) :
-                        Path.Combine(config.OutputDir, NoPlaylistOutputTemplate)
-                    };
-                    if (config.IsDownloadSubs && string.IsNullOrWhiteSpace(config.SubLangs))
-                    {
-                        option.SubLangs = config.SubLangs;
-                    }
-                    InitializeTask(option);
+                    InitializeTaskY(config);
                 }
                 TaskStart();
             }
+        }
+
+        private void InitializeTaskY(IConfig config)
+        {
+            var option = new OptionY()
+            {
+                IsDebug = config.IsDebug,
+                NoPlaylist = !config.IsPlaylist,
+                DownloadUrl = config.DownloadUrl,
+                Format = config.IsAudioOnly ? AudioFormat : VideoFormat,
+                Proxy = config.IsProxy == true ? config.ProxyUrl : null,
+                OutputTemplate = config.IsPlaylist == true ?
+                Path.Combine(config.OutputDir, PlaylistOutputTemplate) :
+                Path.Combine(config.OutputDir, NoPlaylistOutputTemplate)
+            };
+            if (config.IsDownloadSubs && string.IsNullOrWhiteSpace(config.SubLangs))
+            {
+                option.SubLangs = config.SubLangs;
+            }
+            InitializeTask(option);
+        }
+
+        private void InitializeTaskG(IConfig config)
+        {
+            var option = new OptionG()
+            {
+                IsDebug = config.IsDebug,
+                IsPlaylist = config.IsPlaylist,
+                OutputDir = config.OutputDir,
+                DownloadUrl = config.DownloadUrl,
+            };
+
+            if (config.IsProxy && config.ProxyUrl.Scheme == "socks5")
+            {
+                option.SocksProxy = $"{config.ProxyUrl.Host}:{config.ProxyUrl.Port}";
+            }
+            else if (config.IsProxy)
+            {
+                option.HttpProxy = $"{config.ProxyUrl.Host}:{config.ProxyUrl.Port}";
+            }
+            InitializeTask(option);
         }
 
         private void InitializeTask<T>(T option)
