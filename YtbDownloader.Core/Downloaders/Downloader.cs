@@ -111,7 +111,6 @@ namespace YtbDownloader.Core.Downloaders
                 OutputDir = config.OutputDir,
                 DownloadUrl = config.DownloadUrl,
             };
-
             if (config.IsProxy && config.ProxyUrl.Scheme == "socks5")
             {
                 option.SocksProxy = $"{config.ProxyUrl.Host}:{config.ProxyUrl.Port}";
