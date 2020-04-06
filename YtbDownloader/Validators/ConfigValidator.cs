@@ -41,12 +41,12 @@ namespace YtbDownloader.Validators
 
         private static bool IsValidProxyUrl(Uri url)
         {
-            return url != null ? Regex.IsMatch(url.OriginalString, @"^(http(s{0,1})|socks5)://([\w-]+\.)+[\w-]+:\d+(/[\w-./?%&=]*)?$") : false;
+            return url != null ? Regex.IsMatch(url.OriginalString, @"^(http(s?)|socks\d)://([\w-]+\.)+[\w-]+:\d+(/[\w-./?%&=]*)?$") : false;
         }
 
         private static bool IsValidDownloadUrl(Uri url)
         {
-            return url != null ? Regex.IsMatch(url.OriginalString, @"^http(s{0,1})://([\w-]+\.)+[\w-]+(/[\w-./?%&:=]*)?$") : false;
+            return url != null ? Regex.IsMatch(url.OriginalString, @"^http(s?)://([\w-]+\.)+[\w-]+(/[\w-./?%&:=]*)?$") : false;
         }
     }
 }
