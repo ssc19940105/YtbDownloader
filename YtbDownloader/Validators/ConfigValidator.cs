@@ -39,7 +39,7 @@ namespace YtbDownloader.Validators
                 .WithMessage(ResourceHelper.FindResource("CheckOutputDirMessage"));
             RuleFor(x => x.ProxyUrl).Must(IsValidProxyUrl).When(x => x.IsProxy)
                 .WithMessage(ResourceHelper.FindResource("CheckProxyUrlMessage"));
-            RuleFor(x => x.SubLangs).Must(x => !string.IsNullOrWhiteSpace(x)).When(x => x.IsDownloadSubs)
+            RuleFor(x => x.SubLangs).Must(x => !string.IsNullOrWhiteSpace(x)).When(x => x.IsDownloadSubs && !x.IsYouGet)
                 .WithMessage(ResourceHelper.FindResource("CheckSubLangsUrlMessage"));
         }
 
