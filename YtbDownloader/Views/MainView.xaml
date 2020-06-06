@@ -137,7 +137,8 @@
                                 Margin="10,0,0,0"
                                 VerticalAlignment="Center"
                                 Content="{StaticResource IgnoreErrorsHelpText}"
-                                IsChecked="{Binding Config.IgnoreErrors}" />
+                                IsChecked="{Binding Config.IgnoreErrors}"
+                                IsEnabled="{cb:Binding !Config.IsYouGet}" />
                         </StackPanel>
                         <Grid Height="25" Margin="0,5,0,0">
                             <Grid.ColumnDefinitions>
