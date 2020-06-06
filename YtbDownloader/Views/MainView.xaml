@@ -133,6 +133,11 @@
                                 VerticalAlignment="Center"
                                 Content="{StaticResource IsDebugHelpText}"
                                 IsChecked="{Binding Config.IsDebug}" />
+                            <CheckBox
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                Content="{StaticResource IgnoreErrorsHelpText}"
+                                IsChecked="{Binding Config.IgnoreErrors}" />
                         </StackPanel>
                         <Grid Height="25" Margin="0,5,0,0">
                             <Grid.ColumnDefinitions>

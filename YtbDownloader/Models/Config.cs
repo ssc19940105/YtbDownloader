@@ -31,5 +31,7 @@ namespace YtbDownloader.Models
         public bool IsDownloadSubs { get; set; }
 
         public string SubLangs { get; set; }
+
+        public bool IgnoreErrors { get; set; }
     }
 }

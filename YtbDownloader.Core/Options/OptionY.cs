@@ -28,5 +28,8 @@ namespace YtbDownloader.Core.Options
 
         [Option("sub-langs")]
         public string SubLangs { get; set; }
+
+        [Option('i', "ignore-errors")]
+        public bool IgnoreErrors { get; set; }
     }
 }

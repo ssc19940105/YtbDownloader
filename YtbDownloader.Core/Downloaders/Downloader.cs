@@ -94,7 +94,8 @@ namespace YtbDownloader.Core.Downloaders
                 SubLangs = config.IsDownloadSubs ? config.SubLangs : null,
                 OutputTemplate = config.IsPlaylist == true ?
                 Path.Combine(config.OutputDir, PlaylistOutputTemplate) :
-                Path.Combine(config.OutputDir, NoPlaylistOutputTemplate)
+                Path.Combine(config.OutputDir, NoPlaylistOutputTemplate),
+                IgnoreErrors = config.IgnoreErrors
             };
             InitializeTask(option);
         }

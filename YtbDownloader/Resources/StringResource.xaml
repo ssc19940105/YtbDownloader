@@ -28,4 +28,5 @@
     <system:String x:Key="SaveLogDialogTitle">选择保存位置</system:String>
     <system:String x:Key="SaveSubHelpText">下载字幕(YouTube-Dl)</system:String>
     <system:String x:Key="CheckSubLangsUrlMessage">下载字幕需指定对应的语言</system:String>
+    <system:String x:Key="IgnoreErrorsHelpText">忽略错误(YouTube-Dl)</system:String>
 </ResourceDictionary>

@@ -23,5 +23,7 @@ namespace YtbDownloader.Core.Interfaces
         bool IsDownloadSubs { get; set; }
 
         string SubLangs { get; set; }
+
+        bool IgnoreErrors { get; set; }
     }
 }
