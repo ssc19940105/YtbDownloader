@@ -95,7 +95,7 @@ namespace YtbDownloader.Core.Downloaders
                 OutputTemplate = config.IsPlaylist == true ?
                 Path.Combine(config.OutputDir, PlaylistOutputTemplate) :
                 Path.Combine(config.OutputDir, NoPlaylistOutputTemplate),
-                IgnoreErrors = config.IgnoreErrors
+                IgnoreErrors = config.IsIgnoreErrors
             };
             InitializeTask(option);
         }

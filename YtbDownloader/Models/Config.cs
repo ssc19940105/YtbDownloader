@@ -32,6 +32,6 @@ namespace YtbDownloader.Models
 
         public string SubLangs { get; set; }
 
-        public bool IgnoreErrors { get; set; }
+        public bool IsIgnoreErrors { get; set; }
     }
 }
