@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.IO;
+﻿using System.IO;
+using System.Text.Json;
 
 namespace YtbDownloader.Common
 {
@@ -21,14 +21,14 @@ namespace YtbDownloader.Common
             else
             {
                 var input = File.ReadAllText(configPath);
-                var config = JsonConvert.DeserializeObject<T>(input);
+                var config = JsonSerializer.Deserialize<T>(input);
                 return config != null ? config : new T();
             }
         }
 
         public void SaveConfig<T>(T config)
         {
-            File.WriteAllText(configPath, JsonConvert.SerializeObject(config));
+            File.WriteAllText(configPath, JsonSerializer.Serialize(config));
         }
     }
 }

@@ -10,11 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Locales\zh-CN.json" />
+    <None Remove="Locales\zh-CN.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Locales\zh-CN.json">
+    <EmbeddedResource Include="Locales\zh-CN.txt">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
@@ -22,7 +22,7 @@
   <ItemGroup>
     <PackageReference Include="CalcBinding" Version="2.5.2" />
     <PackageReference Include="FluentValidation" Version="8.6.2" />
-    <PackageReference Include="I18NPortable.JsonReader" Version="1.0.1" />
+    <PackageReference Include="I18NPortable" Version="1.0.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

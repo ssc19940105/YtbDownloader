@@ -1,5 +1,4 @@
 ﻿using I18NPortable;
-using I18NPortable.JsonReader;
 using Ninject;
 using Prism.Commands;
 using System;
@@ -7,7 +6,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -141,8 +139,7 @@ namespace YtbDownloader.ViewModels
         public MainViewModel()
         {
             InitializeDownloader();
-            I18N.Current.AddLocaleReader(new JsonKvpReader(), ".json")
-                .SetNotFoundSymbol("$").SetFallbackLocale("en-US").Init(GetType().Assembly);
+            I18N.Current.SetNotFoundSymbol("$").SetFallbackLocale("en-US").Init(GetType().Assembly);
             StartButtonContent = Strings["StartBtnHelpText"];
             configManger = new ConfigManger("Config.json");
             Config = configManger.LoadConfig<Config>();
