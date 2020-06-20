@@ -1,10 +1,13 @@
-﻿using Ninject;
+﻿using I18NPortable;
+using I18NPortable.JsonReader;
+using Ninject;
 using Prism.Commands;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -32,8 +35,9 @@ namespace YtbDownloader.ViewModels
 
         public IConfig Config { get; }
 
+        public static II18N Strings => I18N.Current;
+
         public string StartButtonContent { get; private set; }
-            = ResourceHelper.FindResource("StartBtnHelpText");
 
         public string LogContent { get; private set; }
 
@@ -59,7 +63,7 @@ namespace YtbDownloader.ViewModels
             }
             else
             {
-                LogContent += $"{new LogReceivedEventArgs(ResourceHelper.FindResource("CheckOutputDirMessage"))}\n";
+                LogContent += $"{new LogReceivedEventArgs(Strings["CheckOutputDirMessage"])}\n";
             }
         }
 
@@ -68,8 +72,8 @@ namespace YtbDownloader.ViewModels
             using var dialog = new SaveFileDialog()
             {
                 FileName = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss", CultureInfo.CurrentCulture),
-                Filter = ResourceHelper.FindResource("SaveLogDialogFilter"),
-                Title = ResourceHelper.FindResource("SaveLogDialogTitle")
+                Filter = Strings["SaveLogDialogFilter"],
+                Title = Strings["SaveLogDialogTitle"]
             };
             if (DialogResult.OK == dialog.ShowDialog())
             {
@@ -81,8 +85,8 @@ namespace YtbDownloader.ViewModels
                         file.Write(content, 0, content.Length);
                     }
                 }
-                MessageBox.Show(ResourceHelper.FindResource("SaveLogCompletionMessage"),
-                                ResourceHelper.FindResource("SaveLogCompletionCaption"),
+                MessageBox.Show(Strings["SaveLogCompletionMessage"],
+                                Strings["SaveLogCompletionCaption"],
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information);
             }
@@ -123,8 +127,8 @@ namespace YtbDownloader.ViewModels
         private void WindowClosing(CancelEventArgs e)
         {
             if (downloader?.IsBusy == true &&
-                DialogResult.Yes != MessageBox.Show(ResourceHelper.FindResource("ExitWarningMessage"),
-                                                    ResourceHelper.FindResource("ExitWarningCaption"),
+                DialogResult.Yes != MessageBox.Show(Strings["ExitWarningMessage"],
+                                                    Strings["ExitWarningCaption"],
                                                     MessageBoxButtons.YesNo,
                                                     MessageBoxIcon.Warning))
             {
@@ -137,6 +141,9 @@ namespace YtbDownloader.ViewModels
         public MainViewModel()
         {
             InitializeDownloader();
+            I18N.Current.AddLocaleReader(new JsonKvpReader(), ".json")
+                .SetNotFoundSymbol("$").SetFallbackLocale("en-US").Init(GetType().Assembly);
+            StartButtonContent = Strings["StartBtnHelpText"];
             configManger = new ConfigManger("Config.json");
             Config = configManger.LoadConfig<Config>();
             StartCommand = new DelegateCommand(Start);
@@ -173,12 +180,12 @@ namespace YtbDownloader.ViewModels
 
         private void Downloader_DowndloadStart(object sender, EventArgs e)
         {
-            StartButtonContent = ResourceHelper.FindResource("StopBtnHelpText");
+            StartButtonContent = Strings["StopBtnHelpText"];
         }
 
         private void Downloader_DowndloadComplete(object sender, EventArgs e)
         {
-            StartButtonContent = ResourceHelper.FindResource("StartBtnHelpText");
+            StartButtonContent = Strings["StartBtnHelpText"];
         }
     }
 }

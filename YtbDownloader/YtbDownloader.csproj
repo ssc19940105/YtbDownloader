@@ -10,6 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Locales\zh-CN.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Locales\zh-CN.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CalcBinding" Version="2.5.2" />
     <PackageReference Include="FluentValidation" Version="8.6.2" />
     <PackageReference Include="I18NPortable.JsonReader" Version="1.0.1" />
@@ -45,18 +55,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Resources\StringResource.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Views\MainView.xaml">
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Locales\zh-CN.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
