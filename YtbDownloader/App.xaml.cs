@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using I18NPortable;
+using System.Windows;
 
 namespace YtbDownloader
 {
@@ -7,5 +8,10 @@ namespace YtbDownloader
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            I18N.Current.SetNotFoundSymbol("$")
+                .SetFallbackLocale("zh-CN").Init(GetType().Assembly);
+        }
     }
 }

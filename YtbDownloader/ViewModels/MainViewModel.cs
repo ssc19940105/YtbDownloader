@@ -139,8 +139,6 @@ namespace YtbDownloader.ViewModels
         public MainViewModel()
         {
             InitializeDownloader();
-            I18N.Current.SetNotFoundSymbol("$")
-                .SetFallbackLocale("zh-CN").Init(GetType().Assembly);
             StartButtonContent = Strings["StartBtnHelpText"];
             configManger = new ConfigManger("Config.json");
             Config = configManger.LoadConfig<Config>();
