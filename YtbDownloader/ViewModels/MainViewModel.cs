@@ -139,7 +139,7 @@ namespace YtbDownloader.ViewModels
         public MainViewModel()
         {
             InitializeDownloader();
-            I18N.Current.SetNotFoundSymbol("$").SetFallbackLocale("en-US").Init(GetType().Assembly);
+            I18N.Current.SetNotFoundSymbol("$").Init(GetType().Assembly);
             StartButtonContent = Strings["StartBtnHelpText"];
             configManger = new ConfigManger("Config.json");
             Config = configManger.LoadConfig<Config>();
