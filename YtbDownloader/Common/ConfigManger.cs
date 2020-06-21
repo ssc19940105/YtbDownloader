@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using Anotar.Serilog;
+using System;
+using System.IO;
 using System.Text.Json;
 
 namespace YtbDownloader.Common
@@ -20,15 +22,30 @@ namespace YtbDownloader.Common
             }
             else
             {
-                var input = File.ReadAllText(configPath);
-                var config = JsonSerializer.Deserialize<T>(input);
-                return config != null ? config : new T();
+                try
+                {
+                    var input = File.ReadAllText(configPath);
+                    var config = JsonSerializer.Deserialize<T>(input);
+                    return config != null ? config : new T();
+                }
+                catch (Exception ex)
+                {
+                    LogTo.Error(ex.ToString());
+                    return new T();
+                }
             }
         }
 
         public void SaveConfig<T>(T config)
         {
-            File.WriteAllText(configPath, JsonSerializer.Serialize(config));
+            try
+            {
+                File.WriteAllText(configPath, JsonSerializer.Serialize(config));
+            }
+            catch (Exception ex)
+            {
+                LogTo.Error(ex.ToString());
+            }
         }
     }
 }
