@@ -2,13 +2,11 @@
 using I18NPortable;
 using Ninject;
 using Prism.Commands;
-using Serilog;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -51,8 +49,6 @@ namespace YtbDownloader.ViewModels
 
         public ICommand ClearLogCommand { get; }
 
-        public ICommand SaveLogCommand { get; }
-
         public ICommand WindowClosingCommand { get; }
 
         private void OpenOutputDir()
@@ -64,31 +60,6 @@ namespace YtbDownloader.ViewModels
             else
             {
                 LogContent += $"{new LogReceivedEventArgs(Strings["CheckOutputDirMessage"])}\n";
-            }
-        }
-
-        private void SaveLog()
-        {
-            using var dialog = new SaveFileDialog()
-            {
-                FileName = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss", CultureInfo.CurrentCulture),
-                Filter = Strings["SaveLogDialogFilter"],
-                Title = Strings["SaveLogDialogTitle"]
-            };
-            if (DialogResult.OK == dialog.ShowDialog())
-            {
-                using (var file = File.Create(dialog.FileName))
-                {
-                    if (!string.IsNullOrWhiteSpace(LogContent))
-                    {
-                        var content = Encoding.Default.GetBytes(LogContent);
-                        file.Write(content, 0, content.Length);
-                    }
-                }
-                MessageBox.Show(Strings["SaveLogCompletionMessage"],
-                                Strings["SaveLogCompletionCaption"],
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
             }
         }
 
@@ -145,7 +116,6 @@ namespace YtbDownloader.ViewModels
             configManger = new ConfigManger("Config.json");
             Config = configManger.LoadConfig<Config>();
             StartCommand = new DelegateCommand(Start);
-            SaveLogCommand = new DelegateCommand(SaveLog);
             SetOutputDirCommand = new DelegateCommand(SetOutputDir);
             OpenOutputDirCommand = new DelegateCommand(OpenOutputDir);
             ClearLogCommand = new DelegateCommand(() => LogContent = string.Empty);

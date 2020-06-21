@@ -147,7 +147,7 @@
                             </Grid.ColumnDefinitions>
                             <CheckBox
                                 VerticalAlignment="Center"
-                                Content="{Binding Strings[SaveSubHelpText]}"
+                                Content="{Binding Strings[DownloadSubHelpText]}"
                                 IsChecked="{Binding Config.IsDownloadSubs}"
                                 IsEnabled="{cb:Binding !Config.IsYouGet}" />
                             <TextBox
@@ -169,15 +169,8 @@
                     TextWrapping="Wrap" />
                 <ProgressBar
                     Grid.Row="8"
-                    Grid.ColumnSpan="3"
+                    Grid.ColumnSpan="4"
                     Value="{Binding ProgressValue, Mode=OneWay}" />
-                <Button
-                    Grid.Row="8"
-                    Grid.Column="3"
-                    Margin="10,0,0,0"
-                    Background="White"
-                    Command="{Binding SaveLogCommand}"
-                    Content="{Binding Strings[SaveLogBtnHelpText]}" />
                 <Button
                     Grid.Row="8"
                     Grid.Column="5"
