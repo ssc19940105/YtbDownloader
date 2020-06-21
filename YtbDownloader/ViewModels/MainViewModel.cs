@@ -21,7 +21,7 @@ namespace YtbDownloader.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        private IDownloader downloader;
+        private readonly IDownloader downloader;
 
         private readonly ConfigManger configManger;
 
@@ -97,12 +97,12 @@ namespace YtbDownloader.ViewModels
 
         private void WindowClosing(CancelEventArgs e)
         {
-            if (downloader?.IsBusy == true &&
-                DialogResult.Yes != MessageBox.Show(Strings["ExitWarningMessage"],
-                                                    Strings["ExitWarningCaption"],
-                                                    MessageBoxButtons.YesNo,
-                                                    MessageBoxIcon.Warning))
+            if (downloader?.IsBusy == true)
             {
+                MessageBox.Show(Strings["ExitWarningMessage"],
+                                Strings["WarningCaption"],
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
                 e.Cancel = true;
                 return;
             }
@@ -111,12 +111,10 @@ namespace YtbDownloader.ViewModels
 
         public MainViewModel()
         {
-            InitializeDownloader();
-            StartButtonContent = Strings["StartBtnHelpText"];
-            configManger = new ConfigManger("Config.json");
-            configManger.LoadFailure += ConfigManger_LoadFailure;
-            configManger.SaveFailure += ConfigManger_SaveFailure;
+            configManger = InitializeConfig();
+            downloader = InitializeDownloader();
             Config = configManger.LoadConfig<Config>();
+            StartButtonContent = Strings["StartBtnHelpText"];
             StartCommand = new DelegateCommand(Start);
             SetOutputDirCommand = new DelegateCommand(SetOutputDir);
             OpenOutputDirCommand = new DelegateCommand(OpenOutputDir);
@@ -124,10 +122,18 @@ namespace YtbDownloader.ViewModels
             WindowClosingCommand = new DelegateCommand<CancelEventArgs>(WindowClosing);
         }
 
+        private ConfigManger InitializeConfig()
+        {
+            var configManger = new ConfigManger("Config.json");
+            configManger.LoadFailure += ConfigManger_LoadFailure;
+            configManger.SaveFailure += ConfigManger_SaveFailure;
+            return configManger;
+        }
+
         private void ConfigManger_LoadFailure(object sender, EventArgs e)
         {
             MessageBox.Show(Strings["LoadConfigFailureMessage"],
-                            Strings["WarningBoxTitle"],
+                            Strings["WarningCaption"],
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning);
         }
@@ -135,19 +141,20 @@ namespace YtbDownloader.ViewModels
         private void ConfigManger_SaveFailure(object sender, EventArgs e)
         {
             MessageBox.Show(Strings["SaveConfigFailureMessage"],
-                            Strings["WarningBoxTitle"],
+                            Strings["WarningCaption"],
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning);
         }
 
-        private void InitializeDownloader()
+        private IDownloader InitializeDownloader()
         {
             using var kernel = new StandardKernel();
             kernel.Bind<IDownloader>().To<Downloader>();
-            downloader = kernel.Get<IDownloader>();
+            var downloader = kernel.Get<IDownloader>();
             downloader.LogReceived += Downloader_LogReceived;
             downloader.DowndloadStart += Downloader_DowndloadStart;
             downloader.DowndloadComplete += Downloader_DowndloadComplete;
+            return downloader;
         }
 
         private void Downloader_LogReceived(object sender, LogReceivedEventArgs e)
