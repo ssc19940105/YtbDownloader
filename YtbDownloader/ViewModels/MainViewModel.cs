@@ -114,12 +114,30 @@ namespace YtbDownloader.ViewModels
             InitializeDownloader();
             StartButtonContent = Strings["StartBtnHelpText"];
             configManger = new ConfigManger("Config.json");
+            configManger.LoadFailure += ConfigManger_LoadFailure;
+            configManger.SaveFailure += ConfigManger_SaveFailure;
             Config = configManger.LoadConfig<Config>();
             StartCommand = new DelegateCommand(Start);
             SetOutputDirCommand = new DelegateCommand(SetOutputDir);
             OpenOutputDirCommand = new DelegateCommand(OpenOutputDir);
             ClearLogCommand = new DelegateCommand(() => LogContent = string.Empty);
             WindowClosingCommand = new DelegateCommand<CancelEventArgs>(WindowClosing);
+        }
+
+        private void ConfigManger_LoadFailure(object sender, EventArgs e)
+        {
+            MessageBox.Show(Strings["LoadConfigFailureMessage"],
+                            Strings["WarningBoxTitle"],
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+        }
+
+        private void ConfigManger_SaveFailure(object sender, EventArgs e)
+        {
+            MessageBox.Show(Strings["SaveConfigFailureMessage"],
+                            Strings["WarningBoxTitle"],
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
         }
 
         private void InitializeDownloader()

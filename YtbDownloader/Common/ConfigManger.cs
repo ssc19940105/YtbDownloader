@@ -8,9 +8,13 @@ namespace YtbDownloader.Common
 {
     public class ConfigManger
     {
+        private static II18N Strings => I18N.Current;
+
         private readonly string configPath;
 
-        private static II18N Strings => I18N.Current;
+        public event EventHandler LoadFailure;
+
+        public event EventHandler SaveFailure;
 
         public ConfigManger(string path)
         {
@@ -35,6 +39,7 @@ namespace YtbDownloader.Common
                 {
                     LogTo.Error(ex.ToString());
                     LogTo.Error(Strings["LoadConfigFailureMessage"]);
+                    LoadFailure?.Invoke(this, null);
                     return new T();
                 }
             }
@@ -50,6 +55,7 @@ namespace YtbDownloader.Common
             {
                 LogTo.Error(ex.ToString());
                 LogTo.Error(Strings["SaveConfigFailureMessage"]);
+                SaveFailure?.Invoke(this, null);
             }
         }
     }

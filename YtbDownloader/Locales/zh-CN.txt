@@ -22,3 +22,4 @@ CheckSubLangsUrlMessage = 下载字幕需指定对应的语言
 IsIgnoreErrorsHelpText = 忽略错误(YouTube-Dl)
 LoadConfigFailureMessage = 载入配置文件失败
 SaveConfigFailureMessage = 保存配置文件失败
+WarningBoxTitle = 警告

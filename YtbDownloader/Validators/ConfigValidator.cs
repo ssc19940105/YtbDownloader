@@ -10,7 +10,9 @@ namespace YtbDownloader.Validators
     public class ConfigValidator : AbstractValidator<IConfig>
     {
         private static II18N Strings => I18N.Current;
+
         private static ConfigValidator instance = null;
+
         private static readonly object _lock = new object();
 
         public static ConfigValidator Instance
