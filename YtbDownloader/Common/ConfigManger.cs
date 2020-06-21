@@ -1,4 +1,5 @@
 ﻿using Anotar.Serilog;
+using I18NPortable;
 using System;
 using System.IO;
 using System.Text.Json;
@@ -8,6 +9,8 @@ namespace YtbDownloader.Common
     public class ConfigManger
     {
         private readonly string configPath;
+
+        private static II18N Strings => I18N.Current;
 
         public ConfigManger(string path)
         {
@@ -31,6 +34,7 @@ namespace YtbDownloader.Common
                 catch (Exception ex)
                 {
                     LogTo.Error(ex.ToString());
+                    LogTo.Error(Strings["LoadConfigFailureMessage"]);
                     return new T();
                 }
             }
@@ -45,6 +49,7 @@ namespace YtbDownloader.Common
             catch (Exception ex)
             {
                 LogTo.Error(ex.ToString());
+                LogTo.Error(Strings["SaveConfigFailureMessage"]);
             }
         }
     }
