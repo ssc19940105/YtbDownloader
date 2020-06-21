@@ -1,6 +1,8 @@
-﻿using I18NPortable;
+﻿using Anotar.Serilog;
+using I18NPortable;
 using Ninject;
 using Prism.Commands;
+using Serilog;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -162,6 +164,7 @@ namespace YtbDownloader.ViewModels
 
         private void Downloader_LogReceived(object sender, LogReceivedEventArgs e)
         {
+            LogTo.Information(e.EventMessage);
             var match = Regex.Match(e.EventMessage, @"\s*\d+\.?\d+%");
             if (match.Success && (e.EventMessage.StartsWith("[download]", StringComparison.CurrentCulture)
                 || e.EventMessage.StartsWith(match.Value, StringComparison.CurrentCulture)))
