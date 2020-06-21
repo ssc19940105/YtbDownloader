@@ -90,7 +90,7 @@
                     Grid.Column="1"
                     Grid.ColumnSpan="5"
                     IsEnabled="{Binding Config.IsProxy}"
-                    Style="{Binding Strings[NoWrapTextBox]}"
+                    Style="{StaticResource NoWrapTextBox}"
                     Text="{Binding Config.ProxyUrl}" />
                 <Expander
                     Grid.Row="5"
