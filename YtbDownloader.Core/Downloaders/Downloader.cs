@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using PInvoke;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -7,7 +8,6 @@ using System.Threading.Tasks;
 using YtbDownloader.Core.Common;
 using YtbDownloader.Core.Interfaces;
 using YtbDownloader.Core.Options;
-using PInvoke;
 
 namespace YtbDownloader.Core.Downloaders
 {
