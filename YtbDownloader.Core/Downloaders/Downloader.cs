@@ -1,6 +1,5 @@
 ﻿using CommandLine;
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 using YtbDownloader.Core.Common;
 using YtbDownloader.Core.Interfaces;
 using YtbDownloader.Core.Options;
-using YtbDownloader.Core.Win32;
+using PInvoke;
 
 namespace YtbDownloader.Core.Downloaders
 {
@@ -56,12 +55,12 @@ namespace YtbDownloader.Core.Downloaders
             {
                 Task.Run(() =>
                 {
-                    NativeMethods.AttachConsole((uint)process.Id);
-                    NativeMethods.SetConsoleCtrlHandler(null, true);
-                    NativeMethods.GenerateConsoleCtrlEvent(CtrlTypes.CTRL_C_EVENT, 0);
+                    Kernel32.AttachConsole(process.Id);
+                    Kernel32.SetConsoleCtrlHandler(null, true);
+                    Kernel32.GenerateConsoleCtrlEvent(Kernel32.ControlType.CTRL_C_EVENT, 0);
                     process.WaitForExit(2000);
-                    NativeMethods.FreeConsole();
-                    NativeMethods.SetConsoleCtrlHandler(null, false);
+                    Kernel32.FreeConsole();
+                    Kernel32.SetConsoleCtrlHandler(null, false);
                 });
             }
         }
@@ -133,7 +132,7 @@ namespace YtbDownloader.Core.Downloaders
                     RedirectStandardError = true,
                     Arguments = Parser.Default.FormatCommandLine(option),
                     FileName = option is OptionG ? "you-get" : "youtube-dl",
-                    StandardOutputEncoding = option is OptionG ? Encoding.UTF8 : Encoding.GetEncoding((int)NativeMethods.GetACP())
+                    StandardOutputEncoding = option is OptionG ? Encoding.UTF8 : Encoding.GetEncoding((int)Kernel32.GetConsoleCP())
                 }
             };
             process.OutputDataReceived += Process_DataReceived;
@@ -156,7 +155,7 @@ namespace YtbDownloader.Core.Downloaders
                         process.BeginErrorReadLine();
                         process.WaitForExit();
                     }
-                    catch (Win32Exception e)
+                    catch (System.ComponentModel.Win32Exception e)
                     {
                         OnLogReceived(e.Message);
                         OnComplete();
