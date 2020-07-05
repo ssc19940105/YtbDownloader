@@ -90,11 +90,11 @@ namespace YtbDownloader.Core.Downloaders
                 DownloadUrl = config.DownloadUrl,
                 Format = config.IsAudioOnly ? AudioFormat : VideoFormat,
                 Proxy = config.IsProxy == true ? config.ProxyUrl : null,
-                SubLangs = config.IsDownloadSubs ? config.SubLangs : null,
+                SubLang = config.DownloadSub ? config.SubLang : null,
                 OutputTemplate = config.IsPlaylist == true ?
                 Path.Combine(config.OutputDir, PlaylistOutputTemplate) :
                 Path.Combine(config.OutputDir, NoPlaylistOutputTemplate),
-                IgnoreErrors = config.IsIgnoreErrors
+                IgnoreErrors = config.IgnoreError
             };
             InitializeTask(option);
         }

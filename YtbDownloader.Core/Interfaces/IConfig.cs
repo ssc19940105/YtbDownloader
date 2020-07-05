@@ -20,10 +20,10 @@ namespace YtbDownloader.Core.Interfaces
 
         bool IsYouGet { get; set; }
 
-        bool IsDownloadSubs { get; set; }
+        bool DownloadSub { get; set; }
 
-        string SubLangs { get; set; }
+        string SubLang { get; set; }
 
-        bool IsIgnoreErrors { get; set; }
+        bool IgnoreError { get; set; }
     }
 }
