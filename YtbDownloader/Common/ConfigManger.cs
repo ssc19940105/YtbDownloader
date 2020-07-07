@@ -1,4 +1,4 @@
-﻿using Anotar.Serilog;
+﻿using Anotar.Catel;
 using System;
 using System.IO;
 using System.Text.Json;

@@ -1,4 +1,4 @@
-﻿using Serilog;
+﻿using Catel.Logging;
 using System.Windows;
 
 namespace YtbDownloader
@@ -10,8 +10,10 @@ namespace YtbDownloader
     {
         public App()
         {
-            Log.Logger = new LoggerConfiguration().WriteTo
-                .File(".\\logs\\.log", rollingInterval: RollingInterval.Day).CreateLogger();
+            LogManager.AddListener(new FileLogListener
+            {
+                FilePath = "{AppDir}\\logs\\{Date}.log"
+            });
         }
     }
 }

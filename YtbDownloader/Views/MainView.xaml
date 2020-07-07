@@ -2,7 +2,7 @@
     x:Class="YtbDownloader.Views.MainView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:cb="clr-namespace:CalcBinding;assembly=CalcBinding"
+    xmlns:catle="http://schemas.catelproject.com"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -20,6 +20,7 @@
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="TextWrapping" Value="NoWrap" />
         </Style>
+        <catle:BooleanToOppositeBooleanConverter x:Key="BooleanToOppositeBooleanConverter" />
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
@@ -113,7 +114,7 @@
                                 Margin="10,0,0,0"
                                 VerticalAlignment="Center"
                                 Content="YouTube-Dl"
-                                IsChecked="{cb:Binding !Config.IsYouGet}" />
+                                IsChecked="{Binding Config.IsYouGet, Converter={StaticResource BooleanToOppositeBooleanConverter}}" />
                         </StackPanel>
                         <StackPanel
                             Height="25"
@@ -128,7 +129,7 @@
                                 VerticalAlignment="Center"
                                 Content="{x:Static resx:Resources.IsIsAudioOnlyHelpText}"
                                 IsChecked="{Binding Config.IsAudioOnly}"
-                                IsEnabled="{cb:Binding !Config.IsYouGet}" />
+                                IsEnabled="{Binding Config.IsYouGet, Converter={StaticResource BooleanToOppositeBooleanConverter}}" />
                             <CheckBox
                                 Margin="10,0,0,0"
                                 VerticalAlignment="Center"
@@ -139,7 +140,7 @@
                                 VerticalAlignment="Center"
                                 Content="{x:Static resx:Resources.IsIgnoreErrorsHelpText}"
                                 IsChecked="{Binding Config.IgnoreError}"
-                                IsEnabled="{cb:Binding !Config.IsYouGet}" />
+                                IsEnabled="{Binding Config.IsYouGet, Converter={StaticResource BooleanToOppositeBooleanConverter}}" />
                         </StackPanel>
                         <Grid Height="25" Margin="0,5,0,0">
                             <Grid.ColumnDefinitions>
@@ -147,15 +148,16 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <CheckBox
+                                x:Name="checkBox"
                                 VerticalAlignment="Center"
                                 Content="{x:Static resx:Resources.DownloadSubHelpText}"
                                 IsChecked="{Binding Config.DownloadSub}"
-                                IsEnabled="{cb:Binding !Config.IsYouGet}" />
+                                IsEnabled="{Binding Config.IsYouGet, Converter={StaticResource BooleanToOppositeBooleanConverter}}" />
                             <TextBox
                                 Grid.Column="1"
                                 Margin="10,0,0,0"
                                 VerticalContentAlignment="Center"
-                                IsEnabled="{cb:Binding '!Config.IsYouGet and Config.DownloadSub'}"
+                                IsEnabled="{Binding IsEnabled, ElementName=checkBox}"
                                 Text="{Binding Config.SubLang}" />
                         </Grid>
                     </StackPanel>
