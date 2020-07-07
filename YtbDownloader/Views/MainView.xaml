@@ -127,7 +127,7 @@
                             <CheckBox
                                 Margin="10,0,0,0"
                                 VerticalAlignment="Center"
-                                Content="{x:Static resx:Resources.IsIsAudioOnlyHelpText}"
+                                Content="{x:Static resx:Resources.IsAudioOnlyHelpText}"
                                 IsChecked="{Binding Config.IsAudioOnly}" />
                             <CheckBox
                                 Margin="10,0,0,0"
@@ -137,7 +137,7 @@
                             <CheckBox
                                 Margin="10,0,0,0"
                                 VerticalAlignment="Center"
-                                Content="{x:Static resx:Resources.IsIgnoreErrorsHelpText}"
+                                Content="{x:Static resx:Resources.IgnoreErrorHelpText}"
                                 IsChecked="{Binding Config.IgnoreError}" />
                         </StackPanel>
                         <Grid Height="25" Margin="0,5,0,0">

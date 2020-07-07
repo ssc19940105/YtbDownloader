@@ -147,14 +147,14 @@
   <data name="ExitWarningMessage" xml:space="preserve">
     <value>下载过程中退出可能导致文件损坏，请等待停止下载后再退出</value>
   </data>
-  <data name="IsDebugHelpText" xml:space="preserve">
-    <value>调试模式</value>
-  </data>
-  <data name="IsIgnoreErrorsHelpText" xml:space="preserve">
+  <data name="IgnoreErrorHelpText" xml:space="preserve">
     <value>忽略错误(YouTube-Dl)</value>
   </data>
-  <data name="IsIsAudioOnlyHelpText" xml:space="preserve">
+  <data name="IsAudioOnlyHelpText" xml:space="preserve">
     <value>仅下载音频(YouTube-Dl)</value>
+  </data>
+  <data name="IsDebugHelpText" xml:space="preserve">
+    <value>调试模式</value>
   </data>
   <data name="IsPlaylistHelpText" xml:space="preserve">
     <value>下载列表</value>

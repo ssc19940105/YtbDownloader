@@ -151,29 +151,29 @@ namespace YtbDownloader.Properties {
         }
         
         /// <summary>
-        ///   查找类似 调试模式 的本地化字符串。
-        /// </summary>
-        public static string IsDebugHelpText {
-            get {
-                return ResourceManager.GetString("IsDebugHelpText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 忽略错误(YouTube-Dl) 的本地化字符串。
         /// </summary>
-        public static string IsIgnoreErrorsHelpText {
+        public static string IgnoreErrorHelpText {
             get {
-                return ResourceManager.GetString("IsIgnoreErrorsHelpText", resourceCulture);
+                return ResourceManager.GetString("IgnoreErrorHelpText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 仅下载音频(YouTube-Dl) 的本地化字符串。
         /// </summary>
-        public static string IsIsAudioOnlyHelpText {
+        public static string IsAudioOnlyHelpText {
             get {
-                return ResourceManager.GetString("IsIsAudioOnlyHelpText", resourceCulture);
+                return ResourceManager.GetString("IsAudioOnlyHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 调试模式 的本地化字符串。
+        /// </summary>
+        public static string IsDebugHelpText {
+            get {
+                return ResourceManager.GetString("IsDebugHelpText", resourceCulture);
             }
         }
         
