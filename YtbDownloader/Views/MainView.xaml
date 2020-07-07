@@ -137,7 +137,7 @@
                                 Margin="10,0,0,0"
                                 VerticalAlignment="Center"
                                 Content="{Binding Strings[IsIgnoreErrorsHelpText]}"
-                                IsChecked="{Binding Config.IsIgnoreErrors}"
+                                IsChecked="{Binding Config.IgnoreError}"
                                 IsEnabled="{cb:Binding !Config.IsYouGet}" />
                         </StackPanel>
                         <Grid Height="25" Margin="0,5,0,0">
@@ -148,14 +148,14 @@
                             <CheckBox
                                 VerticalAlignment="Center"
                                 Content="{Binding Strings[DownloadSubHelpText]}"
-                                IsChecked="{Binding Config.IsDownloadSubs}"
+                                IsChecked="{Binding Config.DownloadSub}"
                                 IsEnabled="{cb:Binding !Config.IsYouGet}" />
                             <TextBox
                                 Grid.Column="1"
                                 Margin="10,0,0,0"
                                 VerticalContentAlignment="Center"
-                                IsEnabled="{cb:Binding '!Config.IsYouGet and Config.IsDownloadSubs'}"
-                                Text="{Binding Config.SubLangs}" />
+                                IsEnabled="{cb:Binding '!Config.IsYouGet and Config.DownloadSub'}"
+                                Text="{Binding Config.SubLang}" />
                         </Grid>
                     </StackPanel>
                 </Expander>
