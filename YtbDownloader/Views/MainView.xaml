@@ -128,8 +128,7 @@
                                 Margin="10,0,0,0"
                                 VerticalAlignment="Center"
                                 Content="{x:Static resx:Resources.IsIsAudioOnlyHelpText}"
-                                IsChecked="{Binding Config.IsAudioOnly}"
-                                IsEnabled="{Binding Config.IsYouGet, Converter={StaticResource BooleanToOppositeBooleanConverter}}" />
+                                IsChecked="{Binding Config.IsAudioOnly}" />
                             <CheckBox
                                 Margin="10,0,0,0"
                                 VerticalAlignment="Center"
@@ -139,8 +138,7 @@
                                 Margin="10,0,0,0"
                                 VerticalAlignment="Center"
                                 Content="{x:Static resx:Resources.IsIgnoreErrorsHelpText}"
-                                IsChecked="{Binding Config.IgnoreError}"
-                                IsEnabled="{Binding Config.IsYouGet, Converter={StaticResource BooleanToOppositeBooleanConverter}}" />
+                                IsChecked="{Binding Config.IgnoreError}" />
                         </StackPanel>
                         <Grid Height="25" Margin="0,5,0,0">
                             <Grid.ColumnDefinitions>
@@ -148,16 +146,14 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <CheckBox
-                                x:Name="checkBox"
                                 VerticalAlignment="Center"
                                 Content="{x:Static resx:Resources.DownloadSubHelpText}"
-                                IsChecked="{Binding Config.DownloadSub}"
-                                IsEnabled="{Binding Config.IsYouGet, Converter={StaticResource BooleanToOppositeBooleanConverter}}" />
+                                IsChecked="{Binding Config.DownloadSub}" />
                             <TextBox
                                 Grid.Column="1"
                                 Margin="10,0,0,0"
                                 VerticalContentAlignment="Center"
-                                IsEnabled="{Binding IsEnabled, ElementName=checkBox}"
+                                IsEnabled="{Binding Config.DownloadSub}"
                                 Text="{Binding Config.SubLang}" />
                         </Grid>
                     </StackPanel>
