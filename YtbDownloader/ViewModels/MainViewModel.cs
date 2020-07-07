@@ -1,4 +1,5 @@
 ﻿using Anotar.Catel;
+using Catel.Data;
 using Catel.IoC;
 using Catel.MVVM;
 using System;
@@ -15,7 +16,6 @@ using YtbDownloader.Core.Downloaders;
 using YtbDownloader.Core.Interfaces;
 using YtbDownloader.Models;
 using YtbDownloader.Properties;
-using YtbDownloader.Validators;
 
 namespace YtbDownloader.ViewModels
 {
@@ -25,7 +25,7 @@ namespace YtbDownloader.ViewModels
 
         private readonly ConfigManger configManger;
 
-        public IConfig Config { get; set; }
+        public Config Config { get; set; }
 
         public string StartButtonContent { get; private set; }
 
@@ -72,16 +72,16 @@ namespace YtbDownloader.ViewModels
             }
             else
             {
-                var result = ConfigValidator.Instance.Validate(Config);
-                if (result.IsValid)
+                var results = Config.GetValidationSummary(false).FieldErrors;
+                if (results.Count == 0)
                 {
                     downloader.Download(Config);
                 }
                 else
                 {
-                    foreach (var failure in result.Errors)
+                    foreach (var result in results)
                     {
-                        LogContent += $"{new LogReceivedEventArgs(failure.ErrorMessage)}\n";
+                        LogContent += $"{new LogReceivedEventArgs(result.Message)}\n";
                     }
                 }
             }

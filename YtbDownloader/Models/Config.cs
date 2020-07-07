@@ -1,6 +1,11 @@
-﻿using Catel.MVVM;
+﻿using Catel.Data;
+using Catel.MVVM;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.RegularExpressions;
 using YtbDownloader.Core.Interfaces;
+using YtbDownloader.Properties;
 
 namespace YtbDownloader.Models
 {
@@ -27,5 +32,38 @@ namespace YtbDownloader.Models
         public string SubLang { get; set; }
 
         public bool IgnoreError { get; set; }
+
+        protected override void ValidateFields(List<IFieldValidationResult> validationResults)
+        {
+            if (!IsValidDownloadUrl(DownloadUrl))
+            {
+                validationResults?.Add(FieldValidationResult.CreateError(nameof(DownloadUrl), Resources.CheckDownloadUrlMessage));
+            }
+
+            if (!Directory.Exists(OutputDir))
+            {
+                validationResults?.Add(FieldValidationResult.CreateError(nameof(OutputDir), Resources.CheckOutputDirMessage));
+            }
+
+            if (IsProxy && !IsValidProxyUrl(ProxyUrl))
+            {
+                validationResults?.Add(FieldValidationResult.CreateError(nameof(ProxyUrl), Resources.CheckProxyUrlMessage));
+            }
+
+            if (!IsYouGet && DownloadSub && string.IsNullOrWhiteSpace(SubLang))
+            {
+                validationResults?.Add(FieldValidationResult.CreateError(nameof(SubLang), Resources.CheckSubLangsUrlMessage));
+            }
+        }
+
+        private static bool IsValidProxyUrl(Uri url)
+        {
+            return url != null && Regex.IsMatch(url.OriginalString, @"^(http(s?)|socks\d)://([\w-]+\.)+[\w-]+:\d+(/[\w-./?%&=]*)?$");
+        }
+
+        private static bool IsValidDownloadUrl(Uri url)
+        {
+            return url != null && Regex.IsMatch(url.OriginalString, @"^http(s?)://([\w-]+\.)+[\w-]+(/[\w-./?%&:=]*)?$");
+        }
     }
 }
