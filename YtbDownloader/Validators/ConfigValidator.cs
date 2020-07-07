@@ -1,16 +1,14 @@
 ﻿using FluentValidation;
-using I18NPortable;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using YtbDownloader.Core.Interfaces;
+using YtbDownloader.Properties;
 
 namespace YtbDownloader.Validators
 {
     public class ConfigValidator : AbstractValidator<IConfig>
     {
-        private static II18N Strings => I18N.Current;
-
         private static ConfigValidator instance = null;
 
         private static readonly object _lock = new object();
@@ -33,13 +31,13 @@ namespace YtbDownloader.Validators
         private ConfigValidator()
         {
             RuleFor(x => x.DownloadUrl).Must(IsValidDownloadUrl)
-                .WithMessage(Strings["CheckDownloadUrlMessage"]);
+                .WithMessage(Resources.CheckDownloadUrlMessage);
             RuleFor(x => x.OutputDir).Must(path => Directory.Exists(path))
-                .WithMessage(Strings["CheckOutputDirMessage"]);
+                .WithMessage(Resources.CheckOutputDirMessage);
             RuleFor(x => x.ProxyUrl).Must(IsValidProxyUrl).When(x => x.IsProxy)
-                .WithMessage(Strings["CheckProxyUrlMessage"]);
+                .WithMessage(Resources.CheckProxyUrlMessage);
             RuleFor(x => x.SubLang).Must(x => !string.IsNullOrWhiteSpace(x)).When(x => x.DownloadSub && !x.IsYouGet)
-                .WithMessage(Strings["CheckSubLangsUrlMessage"]);
+                .WithMessage(Resources.CheckSubLangsUrlMessage);
         }
 
         private static bool IsValidProxyUrl(Uri url)

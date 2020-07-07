@@ -1,5 +1,4 @@
-﻿using I18NPortable;
-using Serilog;
+﻿using Serilog;
 using System.Windows;
 
 namespace YtbDownloader
@@ -11,8 +10,6 @@ namespace YtbDownloader
     {
         public App()
         {
-            I18N.Current.SetNotFoundSymbol("$")
-                .SetFallbackLocale("zh-CN").Init(GetType().Assembly);
             Log.Logger = new LoggerConfiguration().WriteTo
                 .File(".\\logs\\.log", rollingInterval: RollingInterval.Day).CreateLogger();
         }
