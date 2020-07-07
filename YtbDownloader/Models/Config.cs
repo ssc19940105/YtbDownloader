@@ -28,10 +28,10 @@ namespace YtbDownloader.Models
 
         public bool IsYouGet { get; set; }
 
-        public bool IsDownloadSubs { get; set; }
+        public bool DownloadSub { get; set; }
 
-        public string SubLangs { get; set; }
+        public string SubLang { get; set; }
 
-        public bool IsIgnoreErrors { get; set; }
+        public bool IgnoreError { get; set; }
     }
 }
