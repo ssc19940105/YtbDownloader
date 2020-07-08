@@ -25,7 +25,7 @@ namespace YtbDownloader.ViewModels
 
         private readonly ConfigManger configManger;
 
-        public Config Config { get; set; }
+        public Config Config { get; }
 
         public string StartButtonContent { get; private set; }
 
