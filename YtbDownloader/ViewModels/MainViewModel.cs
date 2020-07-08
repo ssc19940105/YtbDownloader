@@ -140,9 +140,8 @@ namespace YtbDownloader.ViewModels
 
         private IDownloader InitializeDownloader()
         {
-            using var locator = new ServiceLocator();
-            locator.RegisterType(typeof(IDownloader), typeof(Downloader));
-            var downloader = locator.ResolveType<IDownloader>();
+            ServiceLocator.Default.RegisterType<IDownloader, Downloader>();
+            var downloader = ServiceLocator.Default.ResolveType<IDownloader>();
             downloader.LogReceived += Downloader_LogReceived;
             downloader.DowndloadStart += Downloader_DowndloadStart;
             downloader.DowndloadComplete += Downloader_DowndloadComplete;
