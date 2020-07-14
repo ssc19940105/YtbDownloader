@@ -202,5 +202,10 @@ namespace YtbDownloader.Core.Downloaders
         }
 
         #endregion IDisposable Support
+
+        ~Downloader()
+        {
+            Dispose(false);
+        }
     }
 }
