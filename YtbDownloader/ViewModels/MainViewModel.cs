@@ -116,7 +116,9 @@ namespace YtbDownloader.ViewModels
 
         private ConfigManger InitializeConfig()
         {
-            var configManger = new ConfigManger("Config.json");
+            var path = Catel.IO.Path.GetApplicationDataDirectory();
+            path = System.IO.Path.Combine(path, "Config.json");
+            var configManger = new ConfigManger(path);
             configManger.LoadFailure += ConfigManger_LoadFailure;
             configManger.SaveFailure += ConfigManger_SaveFailure;
             return configManger;
