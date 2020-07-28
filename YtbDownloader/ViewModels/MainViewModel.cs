@@ -2,6 +2,8 @@
 using Catel.Data;
 using Catel.IoC;
 using Catel.MVVM;
+using Catel.Runtime.Serialization;
+using Catel.Runtime.Serialization.Xml;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -10,7 +12,6 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Input;
-using YtbDownloader.Common;
 using YtbDownloader.Core.Common;
 using YtbDownloader.Core.Downloaders;
 using YtbDownloader.Core.Interfaces;
@@ -21,9 +22,9 @@ namespace YtbDownloader.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private readonly IDownloader downloader;
+        private readonly string configPath;
 
-        private readonly ConfigManger configManger;
+        private readonly IDownloader downloader;
 
         public Config Config { get; }
 
@@ -98,30 +99,22 @@ namespace YtbDownloader.ViewModels
                 e.Cancel = true;
                 return;
             }
-            configManger.SaveConfig(Config);
+            Config.SaveAsXml(configPath);
         }
 
         public MainViewModel()
         {
-            configManger = InitializeConfig();
             downloader = InitializeDownloader();
-            Config = configManger.LoadConfig<Config>();
             StartButtonContent = Resources.StartBtnHelpText;
             StartCommand = new Command(Start);
             SetOutputDirCommand = new Command(SetOutputDir);
             OpenOutputDirCommand = new Command(OpenOutputDir);
             ClearLogCommand = new Command(() => LogContent = string.Empty);
             WindowClosingCommand = new Command<CancelEventArgs>(WindowClosing);
-        }
-
-        private ConfigManger InitializeConfig()
-        {
-            var path = Catel.IO.Path.GetApplicationDataDirectory();
-            path = System.IO.Path.Combine(path, "Config.json");
-            var configManger = new ConfigManger(path);
-            configManger.LoadFailure += ConfigManger_LoadFailure;
-            configManger.SaveFailure += ConfigManger_SaveFailure;
-            return configManger;
+            configPath = Path.Combine(Catel.IO.Path.GetApplicationDataDirectory(), "Config.xml");
+            using var stream = new FileStream(configPath, FileMode.Open);
+            var serializer = ServiceLocator.Default.ResolveType<IXmlSerializer>();
+            Config = serializer.Deserialize<Config>(stream);
         }
 
         private void ConfigManger_LoadFailure(object sender, EventArgs e)
