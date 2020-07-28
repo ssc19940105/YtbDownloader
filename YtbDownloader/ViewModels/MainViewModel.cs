@@ -73,7 +73,7 @@ namespace YtbDownloader.ViewModels
             }
             else
             {
-                var results = Config.GetValidationSummary(false).FieldErrors;
+                var results = Config.GetValidationContext().GetFieldErrors();
                 if (results.Count == 0)
                 {
                     downloader.Download(Config);

@@ -1,5 +1,4 @@
 ﻿using Catel.Data;
-using Catel.MVVM;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +8,7 @@ using YtbDownloader.Properties;
 
 namespace YtbDownloader.Models
 {
-    public class Config : ViewModelBase, IConfig
+    public class Config : ValidatableModelBase, IConfig
     {
         public bool IsProxy { get; set; }
 
