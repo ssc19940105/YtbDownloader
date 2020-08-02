@@ -112,9 +112,16 @@ namespace YtbDownloader.ViewModels
             ClearLogCommand = new Command(() => LogContent = string.Empty);
             WindowClosingCommand = new Command<CancelEventArgs>(WindowClosing);
             configPath = Path.Combine(Catel.IO.Path.GetApplicationDataDirectory(), "Config.xml");
-            using var stream = new FileStream(configPath, FileMode.Open);
-            var serializer = ServiceLocator.Default.ResolveType<IXmlSerializer>();
-            Config = serializer.Deserialize<Config>(stream);
+            if (File.Exists(configPath))
+            {
+                using var stream = File.OpenRead(configPath);
+                var serializer = ServiceLocator.Default.ResolveType<IXmlSerializer>();
+                Config = serializer.Deserialize<Config>(stream);
+            }
+            else
+            {
+                Config = new Config();
+            }
         }
 
         private void ConfigManger_LoadFailure(object sender, EventArgs e)
