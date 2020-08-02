@@ -1,4 +1,5 @@
 ﻿using Anotar.Catel;
+using Catel.Data;
 using Catel.IoC;
 using Catel.MVVM;
 using Catel.Runtime.Serialization;
@@ -16,7 +17,6 @@ using YtbDownloader.Core.Downloaders;
 using YtbDownloader.Core.Interfaces;
 using YtbDownloader.Models;
 using YtbDownloader.Properties;
-using YtbDownloader.Validators;
 
 namespace YtbDownloader.ViewModels
 {
@@ -26,7 +26,7 @@ namespace YtbDownloader.ViewModels
 
         private readonly IDownloader downloader;
 
-        public IConfig Config { get; }
+        public Config Config { get; }
 
         public string StartButtonContent { get; private set; }
 
@@ -73,16 +73,16 @@ namespace YtbDownloader.ViewModels
             }
             else
             {
-                var result = ConfigValidator.Instance.Validate(Config);
-                if (result.Errors.Count == 0)
+                var results = Config.GetValidationContext().GetFieldErrors();
+                if (results.Count == 0)
                 {
                     downloader.Download(Config);
                 }
                 else
                 {
-                    foreach (var failure in result.Errors)
+                    foreach (var result in results)
                     {
-                        LogContent += $"{new LogReceivedEventArgs(failure.ErrorMessage)}\n";
+                        LogContent += $"{new LogReceivedEventArgs(result.Message)}\n";
                     }
                 }
             }
@@ -99,8 +99,7 @@ namespace YtbDownloader.ViewModels
                 e.Cancel = true;
                 return;
             }
-            using var stream = File.OpenRead(configPath);
-            ServiceLocator.Default.ResolveType<IXmlSerializer>().Serialize(Config, stream);
+            Config.SaveAsXml(configPath);
         }
 
         public MainViewModel()
@@ -116,7 +115,8 @@ namespace YtbDownloader.ViewModels
             if (File.Exists(configPath))
             {
                 using var stream = File.OpenRead(configPath);
-                Config = ServiceLocator.Default.ResolveType<IXmlSerializer>().Deserialize<Config>(stream);
+                var serializer = ServiceLocator.Default.ResolveType<IXmlSerializer>();
+                Config = serializer.Deserialize<Config>(stream);
             }
             else
             {
