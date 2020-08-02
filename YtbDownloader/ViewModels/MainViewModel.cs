@@ -2,8 +2,6 @@
 using Catel.Data;
 using Catel.IoC;
 using Catel.MVVM;
-using Catel.Runtime.Serialization;
-using Catel.Runtime.Serialization.Xml;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -12,6 +10,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Input;
+using YtbDownloader.Common;
 using YtbDownloader.Core.Common;
 using YtbDownloader.Core.Downloaders;
 using YtbDownloader.Core.Interfaces;
@@ -22,9 +21,9 @@ namespace YtbDownloader.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private readonly string configPath;
-
         private readonly IDownloader downloader;
+
+        private readonly ConfigManger configManger;
 
         public Config Config { get; }
 
@@ -99,7 +98,7 @@ namespace YtbDownloader.ViewModels
                 e.Cancel = true;
                 return;
             }
-            Config.SaveAsXml(configPath);
+            configManger.Save(Config);
         }
 
         public MainViewModel()
@@ -111,17 +110,8 @@ namespace YtbDownloader.ViewModels
             OpenOutputDirCommand = new Command(OpenOutputDir);
             ClearLogCommand = new Command(() => LogContent = string.Empty);
             WindowClosingCommand = new Command<CancelEventArgs>(WindowClosing);
-            configPath = Path.Combine(Catel.IO.Path.GetApplicationDataDirectory(), "Config.xml");
-            if (File.Exists(configPath))
-            {
-                using var stream = File.OpenRead(configPath);
-                var serializer = ServiceLocator.Default.ResolveType<IXmlSerializer>();
-                Config = serializer.Deserialize<Config>(stream);
-            }
-            else
-            {
-                Config = new Config();
-            }
+            configManger = new ConfigManger(Path.Combine(Catel.IO.Path.GetApplicationDataDirectory(), "Config.xml"));
+            Config = configManger.Load<Config>();
         }
 
         private void ConfigManger_LoadFailure(object sender, EventArgs e)
