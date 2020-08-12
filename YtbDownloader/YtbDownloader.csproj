@@ -19,15 +19,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Anotar.Catel.Fody" Version="5.1.3">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="Anotar.Catel.Fody" Version="5.1.3" />
     <PackageReference Include="Catel.Fody" Version="4.4.4">
       <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive; compile</IncludeAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Catel.MVVM" Version="5.12.7" />
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -75,4 +73,5 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+
 </Project>

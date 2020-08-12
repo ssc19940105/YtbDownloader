@@ -180,7 +180,7 @@ namespace YtbDownloader.Core.Downloaders
 
         #region IDisposable Support
 
-        private bool disposedValue;
+        private bool disposedValue = false;
 
         protected virtual void Dispose(bool disposing)
         {
