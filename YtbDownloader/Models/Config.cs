@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Catel.MVVM;
+using System;
 using YtbDownloader.Core.Interfaces;
 
 namespace YtbDownloader.Models
 {
-    public class Config : IConfig
+    public class Config : ViewModelBase, IConfig
     {
         public bool IsProxy { get; set; }
 
