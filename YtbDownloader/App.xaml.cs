@@ -12,7 +12,7 @@ namespace YtbDownloader
         {
             LogManager.AddListener(new FileLogListener
             {
-                FilePath = "{AppDataRoaming}\\logs\\{Date}.log"
+                FilePath = "{AppDataRoaming}\\Logs\\{Date}.log"
             });
         }
     }
