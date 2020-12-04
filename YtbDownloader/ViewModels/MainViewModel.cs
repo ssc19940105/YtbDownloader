@@ -1,6 +1,7 @@
 ﻿using Anotar.Catel;
 using Catel.IoC;
 using Catel.MVVM;
+using I18NPortable;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -14,7 +15,6 @@ using YtbDownloader.Core.Common;
 using YtbDownloader.Core.Downloaders;
 using YtbDownloader.Core.Interfaces;
 using YtbDownloader.Models;
-using YtbDownloader.Properties;
 using YtbDownloader.Validators;
 
 namespace YtbDownloader.ViewModels
@@ -26,6 +26,8 @@ namespace YtbDownloader.ViewModels
         private readonly ConfigManger configManger;
 
         public Config Config { get; }
+
+        public static II18N Strings => I18N.Current;
 
         public string StartButtonContent { get; private set; }
 
@@ -51,7 +53,7 @@ namespace YtbDownloader.ViewModels
             }
             else
             {
-                LogContent += $"{new LogReceivedEventArgs(Resources.CheckOutputDirMessage)}\n";
+                LogContent += $"{new LogReceivedEventArgs("CheckOutputDirMessage".Translate())}\n";
             }
         }
 
@@ -91,8 +93,8 @@ namespace YtbDownloader.ViewModels
         {
             if (downloader?.IsBusy == true)
             {
-                MessageBox.Show(Resources.ExitWarningMessage,
-                                Resources.WarningCaption,
+                MessageBox.Show("ExitWarningMessage".Translate(),
+                                "WarningCaption".Translate(),
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning);
                 e.Cancel = true;
@@ -104,7 +106,7 @@ namespace YtbDownloader.ViewModels
         public MainViewModel()
         {
             downloader = InitializeDownloader();
-            StartButtonContent = Resources.StartBtnHelpText;
+            StartButtonContent = "StartBtnHelpText".Translate();
             StartCommand = new Command(Start);
             SetOutputDirCommand = new Command(SetOutputDir);
             OpenOutputDirCommand = new Command(OpenOutputDir);
@@ -116,16 +118,16 @@ namespace YtbDownloader.ViewModels
 
         private void ConfigManger_LoadFailure(object sender, EventArgs e)
         {
-            MessageBox.Show(Resources.LoadConfigFailureMessage,
-                            Resources.WarningCaption,
+            MessageBox.Show("LoadConfigFailureMessage".Translate(),
+                            "WarningCaption".Translate(),
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning);
         }
 
         private void ConfigManger_SaveFailure(object sender, EventArgs e)
         {
-            MessageBox.Show(Resources.SaveConfigFailureMessage,
-                            Resources.WarningCaption,
+            MessageBox.Show("SaveConfigFailureMessage".Translate(),
+                            "WarningCaption".Translate(),
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning);
         }
@@ -157,12 +159,12 @@ namespace YtbDownloader.ViewModels
 
         private void Downloader_DowndloadStart(object sender, EventArgs e)
         {
-            StartButtonContent = Resources.StopBtnHelpText;
+            StartButtonContent = "StopBtnHelpText".Translate();
         }
 
         private void Downloader_DowndloadComplete(object sender, EventArgs e)
         {
-            StartButtonContent = Resources.StartBtnHelpText;
+            StartButtonContent = "StartBtnHelpText".Translate();
         }
     }
 }

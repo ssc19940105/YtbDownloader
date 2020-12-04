@@ -1,4 +1,6 @@
 ﻿using Catel.Logging;
+using I18NPortable;
+using I18NPortable.Readers;
 using System.Windows;
 
 namespace YtbDownloader
@@ -10,6 +12,8 @@ namespace YtbDownloader
     {
         public App()
         {
+            I18N.Current.AddLocaleReader(new TextKvpReader(), ".txt")
+                .SetFallbackLocale("en-US").Init(GetType().Assembly);
             LogManager.AddListener(new FileLogListener
             {
                 FilePath = "{AppDataRoaming}\\Logs\\{Date}.log"

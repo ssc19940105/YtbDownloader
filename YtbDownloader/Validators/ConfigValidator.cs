@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
+using I18NPortable;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using YtbDownloader.Core.Interfaces;
-using YtbDownloader.Properties;
 
 namespace YtbDownloader.Validators
 {
@@ -31,13 +31,13 @@ namespace YtbDownloader.Validators
         private ConfigValidator()
         {
             RuleFor(x => x.DownloadUrl).Must(IsValidDownloadUrl)
-                .WithMessage(Resources.CheckDownloadUrlMessage);
+                .WithMessage("CheckDownloadUrlMessage".Translate());
             RuleFor(x => x.OutputDir).Must(path => Directory.Exists(path))
-                .WithMessage(Resources.CheckOutputDirMessage);
+                .WithMessage("CheckOutputDirMessage".Translate());
             RuleFor(x => x.ProxyUrl).Must(IsValidProxyUrl).When(x => x.IsProxy)
-                .WithMessage(Resources.CheckProxyUrlMessage);
+                .WithMessage("CheckProxyUrlMessage".Translate());
             RuleFor(x => x.SubLang).NotEmpty().When(x => x.DownloadSub && !x.IsYouGet)
-                .WithMessage(Resources.CheckSubLangsUrlMessage);
+                .WithMessage("CheckSubLangsUrlMessage".Translate());
         }
 
         private static bool IsValidProxyUrl(Uri url)
