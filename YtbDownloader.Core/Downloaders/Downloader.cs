@@ -94,28 +94,23 @@ namespace YtbDownloader.Core.Downloaders
                 OutputTemplate = config.IsPlaylist == true ?
                 Path.Combine(config.OutputDir, PlaylistOutputTemplate) :
                 Path.Combine(config.OutputDir, NoPlaylistOutputTemplate),
-                IgnoreErrors = config.IgnoreError
+                IgnoreError = config.IgnoreError
             };
             InitializeTask(option);
         }
 
         private void InitializeTaskG(IConfig config)
         {
+            var proxy = new Uri(config.ProxyUrl);
             var option = new OptionG()
             {
                 IsDebug = config.IsDebug,
                 IsPlaylist = config.IsPlaylist,
                 OutputDir = config.OutputDir,
                 DownloadUrl = config.DownloadUrl,
+                HttpProxy = proxy.Scheme is "http" or "https" ? $"{proxy.Host}:{proxy.Port}" : null,
+                SocksProxy = proxy.Scheme is "sock4" or "socks5" ? $"{proxy.Host}:{proxy.Port}" : null
             };
-            if (config.IsProxy && config.ProxyUrl.OriginalString.StartsWith("socks", StringComparison.Ordinal))
-            {
-                option.SocksProxy = $"{config.ProxyUrl.Host}:{config.ProxyUrl.Port}";
-            }
-            else if (config.IsProxy)
-            {
-                option.HttpProxy = $"{config.ProxyUrl.Host}:{config.ProxyUrl.Port}";
-            }
             InitializeTask(option);
         }
 

@@ -8,9 +8,9 @@ namespace YtbDownloader.Models
     {
         public bool IsProxy { get; set; }
 
-        public Uri ProxyUrl { get; set; }
+        public string ProxyUrl { get; set; }
 
-        public Uri DownloadUrl { get; set; }
+        public string DownloadUrl { get; set; }
 
         public string OutputDir { get; set; }
 

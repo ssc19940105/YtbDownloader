@@ -1,9 +1,8 @@
 ﻿using FluentValidation;
-using System;
+using I18NPortable;
 using System.IO;
 using System.Text.RegularExpressions;
 using YtbDownloader.Core.Interfaces;
-using YtbDownloader.Properties;
 
 namespace YtbDownloader.Validators
 {
@@ -31,23 +30,23 @@ namespace YtbDownloader.Validators
         private ConfigValidator()
         {
             RuleFor(x => x.DownloadUrl).Must(IsValidDownloadUrl)
-                .WithMessage(Resources.CheckDownloadUrlMessage);
+                .WithMessage("CheckDownloadUrlMessage".Translate());
             RuleFor(x => x.OutputDir).Must(path => Directory.Exists(path))
-                .WithMessage(Resources.CheckOutputDirMessage);
+                .WithMessage("CheckOutputDirMessage".Translate());
             RuleFor(x => x.ProxyUrl).Must(IsValidProxyUrl).When(x => x.IsProxy)
-                .WithMessage(Resources.CheckProxyUrlMessage);
+                .WithMessage("CheckProxyUrlMessage".Translate());
             RuleFor(x => x.SubLang).NotEmpty().When(x => x.DownloadSub && !x.IsYouGet)
-                .WithMessage(Resources.CheckSubLangsUrlMessage);
+                .WithMessage("CheckSubLangsUrlMessage".Translate());
         }
 
-        private static bool IsValidProxyUrl(Uri url)
+        private static bool IsValidProxyUrl(string url)
         {
-            return url != null && Regex.IsMatch(url.OriginalString, @"^(http(s?)|socks\d)://([\w-]+\.)+[\w-]+:\d+(/[\w-./?%&=]*)?$");
+            return url != null && Regex.IsMatch(url, @"^(http(s?)|socks\d)://([\w-]+\.)+[\w-]+:\d+(/[\w-./?%&=]*)?$");
         }
 
-        private static bool IsValidDownloadUrl(Uri url)
+        private static bool IsValidDownloadUrl(string url)
         {
-            return url != null && Regex.IsMatch(url.OriginalString, @"^http(s?)://([\w-]+\.)+[\w-]+(/[\w-./?%&:=]*)?$");
+            return url != null && Regex.IsMatch(url, @"^http(s?)://([\w-]+\.)+[\w-]+(/[\w-./?%&:=]*)?$");
         }
     }
 }

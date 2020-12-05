@@ -6,7 +6,7 @@ namespace YtbDownloader.Core.Options
     public class OptionG
     {
         [Value(0)]
-        public Uri DownloadUrl { get; set; }
+        public string DownloadUrl { get; set; }
 
         [Option('o')]
         public string OutputDir { get; set; }
