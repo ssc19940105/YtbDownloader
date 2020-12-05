@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using I18NPortable;
-using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using YtbDownloader.Core.Interfaces;
@@ -40,14 +39,14 @@ namespace YtbDownloader.Validators
                 .WithMessage("CheckSubLangsUrlMessage".Translate());
         }
 
-        private static bool IsValidProxyUrl(Uri url)
+        private static bool IsValidProxyUrl(string url)
         {
-            return url != null && Regex.IsMatch(url.OriginalString, @"^(http(s?)|socks\d)://([\w-]+\.)+[\w-]+:\d+(/[\w-./?%&=]*)?$");
+            return url != null && Regex.IsMatch(url, @"^(http(s?)|socks\d)://([\w-]+\.)+[\w-]+:\d+(/[\w-./?%&=]*)?$");
         }
 
-        private static bool IsValidDownloadUrl(Uri url)
+        private static bool IsValidDownloadUrl(string url)
         {
-            return url != null && Regex.IsMatch(url.OriginalString, @"^http(s?)://([\w-]+\.)+[\w-]+(/[\w-./?%&:=]*)?$");
+            return url != null && Regex.IsMatch(url, @"^http(s?)://([\w-]+\.)+[\w-]+(/[\w-./?%&:=]*)?$");
         }
     }
 }

@@ -6,9 +6,9 @@ namespace YtbDownloader.Core.Interfaces
     {
         bool IsProxy { get; set; }
 
-        Uri ProxyUrl { get; set; }
+        string ProxyUrl { get; set; }
 
-        Uri DownloadUrl { get; set; }
+        string DownloadUrl { get; set; }
 
         string OutputDir { get; set; }
 
