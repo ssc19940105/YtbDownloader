@@ -1,5 +1,4 @@
 ﻿using Catel.MVVM;
-using System;
 using YtbDownloader.Core.Interfaces;
 
 namespace YtbDownloader.Models

@@ -83,7 +83,7 @@ namespace YtbDownloader.Core.Downloaders
 
         private void InitializeTaskY(IConfig config)
         {
-            var option = new OptionY()
+            InitializeTask(new OptionY()
             {
                 IsDebug = config.IsDebug,
                 NoPlaylist = !config.IsPlaylist,
@@ -95,14 +95,13 @@ namespace YtbDownloader.Core.Downloaders
                 Path.Combine(config.OutputDir, PlaylistOutputTemplate) :
                 Path.Combine(config.OutputDir, NoPlaylistOutputTemplate),
                 IgnoreError = config.IgnoreError
-            };
-            InitializeTask(option);
+            });
         }
 
         private void InitializeTaskG(IConfig config)
         {
             var proxy = new Uri(config.ProxyUrl);
-            var option = new OptionG()
+            InitializeTask(new OptionG()
             {
                 IsDebug = config.IsDebug,
                 IsPlaylist = config.IsPlaylist,
@@ -110,8 +109,7 @@ namespace YtbDownloader.Core.Downloaders
                 DownloadUrl = config.DownloadUrl,
                 HttpProxy = proxy.Scheme is "http" or "https" ? $"{proxy.Host}:{proxy.Port}" : null,
                 SocksProxy = proxy.Scheme is "sock4" or "socks5" ? $"{proxy.Host}:{proxy.Port}" : null
-            };
-            InitializeTask(option);
+            });
         }
 
         private void InitializeTask<T>(T option)
