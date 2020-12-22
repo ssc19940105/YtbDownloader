@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -29,9 +30,9 @@ namespace YtbDownloader.ViewModels
 
         public static II18N Strings => I18N.Current;
 
-        public string StartButtonContent { get; private set; }
+        public StringBuilder LogContent { get; }
 
-        public string LogContent { get; private set; }
+        public string StartButtonContent { get; private set; }
 
         public double ProgressValue { get; private set; }
 
@@ -53,7 +54,7 @@ namespace YtbDownloader.ViewModels
             }
             else
             {
-                LogContent += $"{new LogReceivedEventArgs("CheckOutputDirMessage".Translate())}\n";
+                PrintLog($"{new LogReceivedEventArgs("CheckOutputDirMessage".Translate())}\n");
             }
         }
 
@@ -83,7 +84,7 @@ namespace YtbDownloader.ViewModels
                 {
                     foreach (var failure in validation.Errors)
                     {
-                        LogContent += $"{new LogReceivedEventArgs(failure.ErrorMessage)}\n";
+                        PrintLog($"{new LogReceivedEventArgs(failure.ErrorMessage)}\n");
                     }
                 }
             }
@@ -106,11 +107,12 @@ namespace YtbDownloader.ViewModels
         public MainViewModel()
         {
             downloader = InitializeDownloader();
+            LogContent = new StringBuilder();
             StartButtonContent = "StartBtnHelpText".Translate();
             StartCommand = new Command(Start);
+            ClearLogCommand = new Command(ClearLog);
             SetOutputDirCommand = new Command(SetOutputDir);
             OpenOutputDirCommand = new Command(OpenOutputDir);
-            ClearLogCommand = new Command(() => LogContent = string.Empty);
             WindowClosingCommand = new Command<CancelEventArgs>(WindowClosing);
             configManger = new ConfigManger(Path.Combine(Catel.IO.Path.GetApplicationDataDirectory(), "Config.xml"));
             Config = configManger.Load<Config>();
@@ -136,9 +138,9 @@ namespace YtbDownloader.ViewModels
         {
             ServiceLocator.Default.RegisterType<IDownloader, Downloader>();
             var downloader = ServiceLocator.Default.ResolveType<IDownloader>();
+            downloader.DowndloadStart += (sender, e) => StartButtonContent = "StopBtnHelpText".Translate();
+            downloader.DowndloadComplete += (sender, e) => StartButtonContent = "StartBtnHelpText".Translate();
             downloader.LogReceived += Downloader_LogReceived;
-            downloader.DowndloadStart += Downloader_DowndloadStart;
-            downloader.DowndloadComplete += Downloader_DowndloadComplete;
             return downloader;
         }
 
@@ -153,18 +155,20 @@ namespace YtbDownloader.ViewModels
             }
             else
             {
-                LogContent += $"{e}\n";
+                PrintLog($"{e}\n");
             }
         }
 
-        private void Downloader_DowndloadStart(object sender, EventArgs e)
+        private void PrintLog(string message)
         {
-            StartButtonContent = "StopBtnHelpText".Translate();
+            LogContent.Append(message);
+            RaisePropertyChanged(this, nameof(LogContent));
         }
 
-        private void Downloader_DowndloadComplete(object sender, EventArgs e)
+        private void ClearLog()
         {
-            StartButtonContent = "StartBtnHelpText".Translate();
+            LogContent.Clear();
+            RaisePropertyChanged(this, nameof(LogContent));
         }
     }
 }
