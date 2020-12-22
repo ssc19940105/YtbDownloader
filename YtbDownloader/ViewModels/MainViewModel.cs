@@ -30,7 +30,7 @@ namespace YtbDownloader.ViewModels
 
         public static II18N Strings => I18N.Current;
 
-        public StringBuilder LogContent { get; }
+        public string LogContent { get; private set; }
 
         public string StartButtonContent { get; private set; }
 
@@ -54,7 +54,7 @@ namespace YtbDownloader.ViewModels
             }
             else
             {
-                PrintLog($"{new LogReceivedEventArgs("CheckOutputDirMessage".Translate())}\n");
+                LogContent += $"{new LogReceivedEventArgs("CheckOutputDirMessage".Translate())}\n";
             }
         }
 
@@ -84,7 +84,7 @@ namespace YtbDownloader.ViewModels
                 {
                     foreach (var failure in validation.Errors)
                     {
-                        PrintLog($"{new LogReceivedEventArgs(failure.ErrorMessage)}\n");
+                        LogContent += $"{new LogReceivedEventArgs(failure.ErrorMessage)}\n";
                     }
                 }
             }
@@ -107,12 +107,11 @@ namespace YtbDownloader.ViewModels
         public MainViewModel()
         {
             downloader = InitializeDownloader();
-            LogContent = new StringBuilder();
             StartButtonContent = "StartBtnHelpText".Translate();
             StartCommand = new Command(Start);
-            ClearLogCommand = new Command(ClearLog);
             SetOutputDirCommand = new Command(SetOutputDir);
             OpenOutputDirCommand = new Command(OpenOutputDir);
+            ClearLogCommand = new Command(() => LogContent = string.Empty);
             WindowClosingCommand = new Command<CancelEventArgs>(WindowClosing);
             configManger = new ConfigManger(Path.Combine(Catel.IO.Path.GetApplicationDataDirectory(), "Config.xml"));
             Config = configManger.Load<Config>();
@@ -155,20 +154,8 @@ namespace YtbDownloader.ViewModels
             }
             else
             {
-                PrintLog($"{e}\n");
+                LogContent += $"{e}\n";
             }
-        }
-
-        private void PrintLog(string message)
-        {
-            LogContent.Append(message);
-            RaisePropertyChanged(this, nameof(LogContent));
-        }
-
-        private void ClearLog()
-        {
-            LogContent.Clear();
-            RaisePropertyChanged(this, nameof(LogContent));
         }
     }
 }
