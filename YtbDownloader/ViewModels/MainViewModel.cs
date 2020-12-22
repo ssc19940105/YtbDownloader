@@ -116,22 +116,6 @@ namespace YtbDownloader.ViewModels
             Config = configManger.Load<Config>();
         }
 
-        private void ConfigManger_LoadFailure(object sender, EventArgs e)
-        {
-            MessageBox.Show("LoadConfigFailureMessage".Translate(),
-                            "WarningCaption".Translate(),
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
-        }
-
-        private void ConfigManger_SaveFailure(object sender, EventArgs e)
-        {
-            MessageBox.Show("SaveConfigFailureMessage".Translate(),
-                            "WarningCaption".Translate(),
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
-        }
-
         private IDownloader InitializeDownloader()
         {
             ServiceLocator.Default.RegisterType<IDownloader, Downloader>();
