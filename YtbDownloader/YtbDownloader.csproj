@@ -8,6 +8,7 @@
     <RootNamespace>YtbDownloader</RootNamespace>
     <AssemblyName>YtbDownloader</AssemblyName>
     <NeutralLanguage>zh-CN</NeutralLanguage>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -40,10 +41,6 @@
     <PackageReference Include="Catel.MVVM" Version="5.12.11" />
     <PackageReference Include="FluentValidation" Version="9.3.0" />
     <PackageReference Include="I18NPortable" Version="1.0.1" />
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
