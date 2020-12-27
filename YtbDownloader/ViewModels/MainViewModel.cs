@@ -29,9 +29,9 @@ namespace YtbDownloader.ViewModels
 
         public static II18N Strings => I18N.Current;
 
-        public string StartButtonContent { get; private set; }
-
         public string LogContent { get; private set; }
+
+        public string StartButtonContent { get; private set; }
 
         public double ProgressValue { get; private set; }
 
@@ -116,29 +116,13 @@ namespace YtbDownloader.ViewModels
             Config = configManger.Load<Config>();
         }
 
-        private void ConfigManger_LoadFailure(object sender, EventArgs e)
-        {
-            MessageBox.Show("LoadConfigFailureMessage".Translate(),
-                            "WarningCaption".Translate(),
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
-        }
-
-        private void ConfigManger_SaveFailure(object sender, EventArgs e)
-        {
-            MessageBox.Show("SaveConfigFailureMessage".Translate(),
-                            "WarningCaption".Translate(),
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
-        }
-
         private IDownloader InitializeDownloader()
         {
             ServiceLocator.Default.RegisterType<IDownloader, Downloader>();
             var downloader = ServiceLocator.Default.ResolveType<IDownloader>();
+            downloader.DowndloadStart += (sender, e) => StartButtonContent = "StopBtnHelpText".Translate();
+            downloader.DowndloadComplete += (sender, e) => StartButtonContent = "StartBtnHelpText".Translate();
             downloader.LogReceived += Downloader_LogReceived;
-            downloader.DowndloadStart += Downloader_DowndloadStart;
-            downloader.DowndloadComplete += Downloader_DowndloadComplete;
             return downloader;
         }
 
@@ -155,16 +139,6 @@ namespace YtbDownloader.ViewModels
             {
                 LogContent += $"{e}\n";
             }
-        }
-
-        private void Downloader_DowndloadStart(object sender, EventArgs e)
-        {
-            StartButtonContent = "StopBtnHelpText".Translate();
-        }
-
-        private void Downloader_DowndloadComplete(object sender, EventArgs e)
-        {
-            StartButtonContent = "StartBtnHelpText".Translate();
         }
     }
 }
