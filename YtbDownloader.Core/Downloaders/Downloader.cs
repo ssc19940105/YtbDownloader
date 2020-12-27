@@ -100,16 +100,26 @@ namespace YtbDownloader.Core.Downloaders
 
         private void InitializeTaskG(IConfig config)
         {
-            var proxy = new Uri(config.ProxyUrl);
-            InitializeTask(new OptionG()
+            var option = new OptionG()
             {
                 IsDebug = config.IsDebug,
                 IsPlaylist = config.IsPlaylist,
                 OutputDir = config.OutputDir,
                 DownloadUrl = config.DownloadUrl,
-                HttpProxy = proxy.Scheme is "http" or "https" ? $"{proxy.Host}:{proxy.Port}" : null,
-                SocksProxy = proxy.Scheme is "sock4" or "socks5" ? $"{proxy.Host}:{proxy.Port}" : null
-            });
+            };
+            if (config.IsProxy)
+            {
+                var proxy = new Uri(config.ProxyUrl);
+                if (proxy.Scheme is "http" or "https")
+                {
+                    option.HttpProxy = $"{proxy.Host}:{proxy.Port}";
+                }
+                else if (proxy.Scheme is "sock4" or "socks5")
+                {
+                    option.SocksProxy = $"{proxy.Host}:{proxy.Port}";
+                }
+            }
+            InitializeTask(option);
         }
 
         private void InitializeTask<T>(T option)
