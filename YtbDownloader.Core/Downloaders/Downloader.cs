@@ -92,8 +92,8 @@ namespace YtbDownloader.Core.Downloaders
                 Proxy = config.IsProxy == true ? config.ProxyUrl : null,
                 SubLang = config.DownloadSub ? config.SubLang : null,
                 OutputTemplate = config.IsPlaylist == true ?
-                Path.Combine(config.OutputDir, PlaylistOutputTemplate) :
-                Path.Combine(config.OutputDir, NoPlaylistOutputTemplate),
+                Path.Combine(config.OutputPath, PlaylistOutputTemplate) :
+                Path.Combine(config.OutputPath, NoPlaylistOutputTemplate),
                 IgnoreError = config.IgnoreError
             });
         }
@@ -104,7 +104,7 @@ namespace YtbDownloader.Core.Downloaders
             {
                 IsDebug = config.IsDebug,
                 IsPlaylist = config.IsPlaylist,
-                OutputDir = config.OutputDir,
+                OutputDir = config.OutputPath,
                 DownloadUrl = config.DownloadUrl,
             };
             if (config.IsProxy)

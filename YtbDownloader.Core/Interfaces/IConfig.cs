@@ -10,7 +10,7 @@ namespace YtbDownloader.Core.Interfaces
 
         string DownloadUrl { get; set; }
 
-        string OutputDir { get; set; }
+        string OutputPath { get; set; }
 
         bool IsAudioOnly { get; set; }
 

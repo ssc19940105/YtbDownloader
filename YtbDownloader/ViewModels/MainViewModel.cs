@@ -31,25 +31,25 @@ namespace YtbDownloader.ViewModels
 
         public string LogContent { get; private set; }
 
-        public string StartButtonContent { get; private set; }
+        public string DownloadBtnContent { get; private set; }
 
         public double ProgressValue { get; private set; }
 
-        public ICommand SetOutputDirCommand { get; }
+        public ICommand SetOutputPathCommand { get; }
 
-        public ICommand StartCommand { get; }
+        public ICommand DownloadCommand { get; }
 
-        public ICommand OpenOutputDirCommand { get; }
+        public ICommand OpenOutputPathCommand { get; }
 
         public ICommand ClearLogCommand { get; }
 
         public ICommand WindowClosingCommand { get; }
 
-        private void OpenOutputDir()
+        private void OpenOutputPath()
         {
-            if (Directory.Exists(Config.OutputDir))
+            if (Directory.Exists(Config.OutputPath))
             {
-                Process.Start("explorer", Config.OutputDir);
+                Process.Start("explorer", Config.OutputPath);
             }
             else
             {
@@ -57,16 +57,16 @@ namespace YtbDownloader.ViewModels
             }
         }
 
-        private void SetOutputDir()
+        private void SetOutputPath()
         {
             using var dialog = new FolderBrowserDialog();
             if (DialogResult.OK == dialog.ShowDialog())
             {
-                Config.OutputDir = dialog.SelectedPath;
+                Config.OutputPath = dialog.SelectedPath;
             }
         }
 
-        private void Start()
+        private void Download()
         {
             if (downloader.IsBusy)
             {
@@ -106,10 +106,10 @@ namespace YtbDownloader.ViewModels
         public MainViewModel()
         {
             downloader = InitializeDownloader();
-            StartButtonContent = "StartBtnHelpText".Translate();
-            StartCommand = new Command(Start);
-            SetOutputDirCommand = new Command(SetOutputDir);
-            OpenOutputDirCommand = new Command(OpenOutputDir);
+            DownloadBtnContent = "StartBtnHelpText".Translate();
+            DownloadCommand = new Command(Download);
+            SetOutputPathCommand = new Command(SetOutputPath);
+            OpenOutputPathCommand = new Command(OpenOutputPath);
             ClearLogCommand = new Command(() => LogContent = string.Empty);
             WindowClosingCommand = new Command<CancelEventArgs>(WindowClosing);
             configManger = new ConfigManger(Path.Combine(Catel.IO.Path.GetApplicationDataDirectory(), "Config.xml"));
@@ -120,8 +120,8 @@ namespace YtbDownloader.ViewModels
         {
             ServiceLocator.Default.RegisterType<IDownloader, Downloader>();
             var downloader = ServiceLocator.Default.ResolveType<IDownloader>();
-            downloader.DowndloadStart += (sender, e) => StartButtonContent = "StopBtnHelpText".Translate();
-            downloader.DowndloadComplete += (sender, e) => StartButtonContent = "StartBtnHelpText".Translate();
+            downloader.DowndloadStart += (sender, e) => DownloadBtnContent = "StopBtnHelpText".Translate();
+            downloader.DowndloadComplete += (sender, e) => DownloadBtnContent = "StartBtnHelpText".Translate();
             downloader.LogReceived += Downloader_LogReceived;
             return downloader;
         }

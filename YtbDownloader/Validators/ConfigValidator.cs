@@ -31,7 +31,7 @@ namespace YtbDownloader.Validators
         {
             RuleFor(x => x.DownloadUrl).Must(IsValidDownloadUrl)
                 .WithMessage("CheckDownloadUrlMessage".Translate());
-            RuleFor(x => x.OutputDir).Must(path => Directory.Exists(path))
+            RuleFor(x => x.OutputPath).Must(path => Directory.Exists(path))
                 .WithMessage("CheckOutputDirMessage".Translate());
             RuleFor(x => x.ProxyUrl).Must(IsValidProxyUrl).When(x => x.IsProxy)
                 .WithMessage("CheckProxyUrlMessage".Translate());

@@ -58,30 +58,30 @@
                 <Button
                     Grid.Column="6"
                     Background="White"
-                    Command="{Binding StartCommand}"
-                    Content="{Binding StartButtonContent}" />
+                    Command="{Binding DownloadCommand}"
+                    Content="{Binding DownloadBtnContent}" />
                 <TextBlock
                     Grid.Row="2"
                     VerticalAlignment="Center"
-                    Text="{Binding Strings[OutputDirHelpText]}" />
+                    Text="{Binding Strings[OutputPathHelpText]}" />
                 <TextBox
                     Grid.Row="2"
                     Grid.Column="2"
                     Grid.ColumnSpan="1"
                     Style="{StaticResource NoWrapTextBox}"
-                    Text="{Binding Config.OutputDir}" />
+                    Text="{Binding Config.OutputPath}" />
                 <Button
                     Grid.Row="2"
                     Grid.Column="4"
                     Background="White"
-                    Command="{Binding OpenOutputDirCommand}"
-                    Content="{Binding Strings[OpenOutputDirHelpText]}" />
+                    Command="{Binding OpenOutputPathCommand}"
+                    Content="{Binding Strings[OpenOutputPathHelpText]}" />
                 <Button
                     Grid.Row="2"
                     Grid.Column="6"
                     Background="White"
-                    Command="{Binding SetOutputDirCommand}"
-                    Content="{Binding Strings[SetOutputDirHelpText]}" />
+                    Command="{Binding SetOutputPathCommand}"
+                    Content="{Binding Strings[SetOutputPathHelpText]}" />
                 <CheckBox
                     Grid.Row="4"
                     VerticalAlignment="Center"

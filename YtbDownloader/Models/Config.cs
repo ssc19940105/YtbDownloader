@@ -11,7 +11,7 @@ namespace YtbDownloader.Models
 
         public string DownloadUrl { get; set; }
 
-        public string OutputDir { get; set; }
+        public string OutputPath { get; set; }
 
         public bool IsAudioOnly { get; set; }
 
