@@ -24,7 +24,7 @@ namespace YtbDownloader.ViewModels
 
         private readonly ConfigManger configManger;
 
-        public Config Config { get; }
+        public IConfig Config { get; }
 
         public static II18N Strings => I18N.Current;
 
