@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace YtbDownloader.Core.Interfaces
+﻿namespace YtbDownloader.Core.Interfaces
 {
     public interface IConfig
     {

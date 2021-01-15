@@ -21,6 +21,9 @@
             <Setter Property="TextWrapping" Value="NoWrap" />
         </Style>
     </Window.Resources>
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo ProgressState="{Binding ProgressState}" ProgressValue="{cb:Binding ProgressValue/100}" />
+    </Window.TaskbarItemInfo>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
             <i:InvokeCommandAction Command="{Binding WindowClosingCommand}" PassEventArgsToCommand="True" />

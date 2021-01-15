@@ -10,6 +10,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Shell;
 using YtbDownloader.Common;
 using YtbDownloader.Core.Common;
 using YtbDownloader.Core.Interfaces;
@@ -31,6 +32,8 @@ namespace YtbDownloader.ViewModels
         public string LogContent { get; private set; }
 
         public string DownloadBtnContent { get; private set; }
+
+        public TaskbarItemProgressState ProgressState { get; private set; }
 
         public double ProgressValue { get; private set; }
 
@@ -113,9 +116,13 @@ namespace YtbDownloader.ViewModels
             configManger = new ConfigManger(Path.Combine(Catel.IO.Path.GetApplicationDataDirectory(), "Config.xml"));
             Config = configManger.Load<Config>();
             downloader = ServiceLocator.Default.ResolveType<IDownloader>();
-            downloader.DowndloadStart += (sender, e) => DownloadBtnContent = "StopBtnHelpText".Translate();
-            downloader.DowndloadComplete += (sender, e) => DownloadBtnContent = "StartBtnHelpText".Translate();
             downloader.LogReceived += Downloader_LogReceived;
+            downloader.DowndloadStart += (sender, e) => DownloadBtnContent = "StopBtnHelpText".Translate();
+            downloader.DowndloadComplete += (sender, e) =>
+            {
+                DownloadBtnContent = "StartBtnHelpText".Translate();
+                ProgressState = TaskbarItemProgressState.None;
+            };
         }
 
         private void Downloader_LogReceived(object sender, LogReceivedEventArgs e)
@@ -126,6 +133,10 @@ namespace YtbDownloader.ViewModels
                 || e.EventMessage.StartsWith(match.Value, StringComparison.CurrentCulture)))
             {
                 ProgressValue = double.Parse(match.Value.Split('%')[0], CultureInfo.CurrentCulture);
+                if (ProgressState == 0)
+                {
+                    ProgressState = TaskbarItemProgressState.Normal;
+                }
             }
             else
             {
