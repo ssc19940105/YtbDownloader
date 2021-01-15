@@ -12,7 +12,6 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using YtbDownloader.Common;
 using YtbDownloader.Core.Common;
-using YtbDownloader.Core.Downloaders;
 using YtbDownloader.Core.Interfaces;
 using YtbDownloader.Models;
 using YtbDownloader.Validators;
@@ -25,7 +24,7 @@ namespace YtbDownloader.ViewModels
 
         private readonly ConfigManger configManger;
 
-        public Config Config { get; }
+        public IConfig Config { get; }
 
         public static II18N Strings => I18N.Current;
 
@@ -105,7 +104,6 @@ namespace YtbDownloader.ViewModels
 
         public MainViewModel()
         {
-            downloader = InitializeDownloader();
             DownloadBtnContent = "StartBtnHelpText".Translate();
             DownloadCommand = new Command(Download);
             SetOutputPathCommand = new Command(SetOutputPath);
@@ -114,16 +112,10 @@ namespace YtbDownloader.ViewModels
             WindowClosingCommand = new Command<CancelEventArgs>(WindowClosing);
             configManger = new ConfigManger(Path.Combine(Catel.IO.Path.GetApplicationDataDirectory(), "Config.xml"));
             Config = configManger.Load<Config>();
-        }
-
-        private IDownloader InitializeDownloader()
-        {
-            ServiceLocator.Default.RegisterType<IDownloader, Downloader>();
-            var downloader = ServiceLocator.Default.ResolveType<IDownloader>();
+            downloader = ServiceLocator.Default.ResolveType<IDownloader>();
             downloader.DowndloadStart += (sender, e) => DownloadBtnContent = "StopBtnHelpText".Translate();
             downloader.DowndloadComplete += (sender, e) => DownloadBtnContent = "StartBtnHelpText".Translate();
             downloader.LogReceived += Downloader_LogReceived;
-            return downloader;
         }
 
         private void Downloader_LogReceived(object sender, LogReceivedEventArgs e)

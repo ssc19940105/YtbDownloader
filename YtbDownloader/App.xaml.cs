@@ -1,7 +1,10 @@
-﻿using Catel.Logging;
+﻿using Catel.IoC;
+using Catel.Logging;
 using I18NPortable;
 using I18NPortable.Readers;
 using System.Windows;
+using YtbDownloader.Core.Downloaders;
+using YtbDownloader.Core.Interfaces;
 
 namespace YtbDownloader
 {
@@ -12,6 +15,7 @@ namespace YtbDownloader
     {
         public App()
         {
+            ServiceLocator.Default.RegisterType<IDownloader, Downloader>();
             I18N.Current.AddLocaleReader(new TextKvpReader(), ".txt")
                 .SetFallbackLocale("en-US").Init(GetType().Assembly);
             LogManager.AddListener(new FileLogListener
