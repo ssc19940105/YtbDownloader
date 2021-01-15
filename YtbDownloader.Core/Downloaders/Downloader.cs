@@ -1,10 +1,10 @@
 ﻿using CommandLine;
-using PInvoke;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Vanara.PInvoke;
 using YtbDownloader.Core.Common;
 using YtbDownloader.Core.Interfaces;
 using YtbDownloader.Core.Options;
@@ -55,9 +55,9 @@ namespace YtbDownloader.Core.Downloaders
             {
                 Task.Run(() =>
                 {
-                    Kernel32.AttachConsole(process.Id);
+                    Kernel32.AttachConsole((uint)process.Id);
                     Kernel32.SetConsoleCtrlHandler(null, true);
-                    Kernel32.GenerateConsoleCtrlEvent(Kernel32.ControlType.CTRL_C_EVENT, 0);
+                    Kernel32.GenerateConsoleCtrlEvent(Kernel32.CTRL_EVENT.CTRL_C_EVENT, 0);
                     process.WaitForExit(2000);
                     Kernel32.FreeConsole();
                     Kernel32.SetConsoleCtrlHandler(null, false);
