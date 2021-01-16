@@ -95,14 +95,19 @@ namespace YtbDownloader.ViewModels
         {
             if (downloader?.IsBusy == true)
             {
-                MessageBox.Show("ExitWarningMessage".Translate(),
+                if (MessageBox.Show("ExitWarningMessage".Translate(),
                                 "WarningCaption".Translate(),
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
-                e.Cancel = true;
-                return;
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    downloader.Cancel();
+                    configManger.Save(Config);
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
             }
-            configManger.Save(Config);
         }
 
         public MainViewModel()
