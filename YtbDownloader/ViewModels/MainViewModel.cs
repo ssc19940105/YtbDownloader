@@ -122,12 +122,8 @@ namespace YtbDownloader.ViewModels
             Config = configManger.Load<Config>();
             downloader = ServiceLocator.Default.ResolveType<IDownloader>();
             downloader.LogReceived += Downloader_LogReceived;
-            downloader.DowndloadStart += (sender, e) => DownloadBtnContent = "StopBtnHelpText".Translate();
-            downloader.DowndloadComplete += (sender, e) =>
-            {
-                DownloadBtnContent = "StartBtnHelpText".Translate();
-                ProgressState = TaskbarItemProgressState.None;
-            };
+            downloader.DowndloadStart += Downloader_DowndloadStart;
+            downloader.DowndloadComplete += Downloader_DowndloadComplete;
         }
 
         private void Downloader_LogReceived(object sender, LogReceivedEventArgs e)
@@ -138,15 +134,23 @@ namespace YtbDownloader.ViewModels
                 || e.EventMessage.StartsWith(match.Value, StringComparison.CurrentCulture)))
             {
                 ProgressValue = double.Parse(match.Value.Split('%')[0], CultureInfo.CurrentCulture);
-                if (ProgressState == 0)
-                {
-                    ProgressState = TaskbarItemProgressState.Normal;
-                }
             }
             else
             {
                 LogContent += $"{e}\n";
             }
+        }
+
+        private void Downloader_DowndloadStart(object sender, EventArgs e)
+        {
+            DownloadBtnContent = "StopBtnHelpText".Translate();
+            ProgressState = TaskbarItemProgressState.Normal;
+        }
+
+        private void Downloader_DowndloadComplete(object sender, EventArgs e)
+        {
+            DownloadBtnContent = "StartBtnHelpText".Translate();
+            ProgressState = TaskbarItemProgressState.None;
         }
     }
 }
