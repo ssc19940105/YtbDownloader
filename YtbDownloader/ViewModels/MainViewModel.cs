@@ -101,13 +101,13 @@ namespace YtbDownloader.ViewModels
                                 MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     downloader.Cancel();
-                    configManger.Save(Config);
                 }
                 else
                 {
                     e.Cancel = true;
                 }
             }
+            configManger.Save(Config);
         }
 
         public MainViewModel()
