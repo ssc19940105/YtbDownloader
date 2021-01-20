@@ -7,9 +7,9 @@ namespace YtbDownloader.Core.Interfaces
     {
         bool IsBusy { get; }
 
-        event EventHandler DowndloadStart;
+        event EventHandler DownloadStarted;
 
-        event EventHandler DowndloadComplete;
+        event EventHandler DownloadCompleted;
 
         event EventHandler<LogReceivedEventArgs> LogReceived;
 

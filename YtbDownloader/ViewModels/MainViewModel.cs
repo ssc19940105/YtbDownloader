@@ -122,8 +122,8 @@ namespace YtbDownloader.ViewModels
             Config = configManger.Load<Config>();
             downloader = ServiceLocator.Default.ResolveType<IDownloader>();
             downloader.LogReceived += Downloader_LogReceived;
-            downloader.DowndloadStart += Downloader_DowndloadStart;
-            downloader.DowndloadComplete += Downloader_DowndloadComplete;
+            downloader.DownloadStarted += Downloader_DownloadStarted;
+            downloader.DownloadCompleted += Downloader_DownloadCompleted;
         }
 
         private void Downloader_LogReceived(object sender, LogReceivedEventArgs e)
@@ -141,13 +141,13 @@ namespace YtbDownloader.ViewModels
             }
         }
 
-        private void Downloader_DowndloadStart(object sender, EventArgs e)
+        private void Downloader_DownloadStarted(object sender, EventArgs e)
         {
             DownloadBtnContent = "StopBtnHelpText".Translate();
             ProgressState = TaskbarItemProgressState.Normal;
         }
 
-        private void Downloader_DowndloadComplete(object sender, EventArgs e)
+        private void Downloader_DownloadCompleted(object sender, EventArgs e)
         {
             DownloadBtnContent = "StartBtnHelpText".Translate();
             ProgressState = TaskbarItemProgressState.None;

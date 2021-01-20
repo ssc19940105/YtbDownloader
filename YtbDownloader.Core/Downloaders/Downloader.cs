@@ -19,9 +19,9 @@ namespace YtbDownloader.Core.Downloaders
         private const string NoPlaylistOutputTemplate = "%(title)s.%(ext)s";
         private const string PlaylistOutputTemplate = "%(playlist)s/%(title)s.%(ext)s";
 
-        public event EventHandler DowndloadStart;
+        public event EventHandler DownloadStarted;
 
-        public event EventHandler DowndloadComplete;
+        public event EventHandler DownloadCompleted;
 
         public event EventHandler<LogReceivedEventArgs> LogReceived;
 
@@ -30,13 +30,13 @@ namespace YtbDownloader.Core.Downloaders
         private void OnStart()
         {
             IsBusy = true;
-            DowndloadStart?.Invoke(this, null);
+            DownloadStarted?.Invoke(this, null);
         }
 
         private void OnComplete()
         {
             IsBusy = false;
-            DowndloadComplete?.Invoke(this, null);
+            DownloadCompleted?.Invoke(this, null);
         }
 
         private void OnLogReceived(string data)
