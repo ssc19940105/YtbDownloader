@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Shell;
 using YtbDownloader.Common;
 using YtbDownloader.Core.Common;
+using YtbDownloader.Core.Downloaders;
 using YtbDownloader.Core.Interfaces;
 using YtbDownloader.Models;
 using YtbDownloader.Validators;
@@ -120,6 +121,7 @@ namespace YtbDownloader.ViewModels
             WindowClosingCommand = new Command<CancelEventArgs>(WindowClosing);
             configManger = new ConfigManger(Path.Combine(Catel.IO.Path.GetApplicationDataDirectory(), "Config.xml"));
             Config = configManger.Load<Config>();
+            ServiceLocator.Default.RegisterType<IDownloader, Downloader>();
             downloader = ServiceLocator.Default.ResolveType<IDownloader>();
             downloader.LogReceived += Downloader_LogReceived;
             downloader.DownloadStarted += Downloader_DownloadStarted;
