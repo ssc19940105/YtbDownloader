@@ -2,7 +2,7 @@
 
 namespace YtbDownloader.Core.Options
 {
-    public class OptionG
+    internal class OptionG
     {
         [Value(0)]
         public string DownloadUrl { get; set; }
