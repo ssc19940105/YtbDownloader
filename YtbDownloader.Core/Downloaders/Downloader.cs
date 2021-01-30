@@ -11,7 +11,7 @@ using YtbDownloader.Core.Options;
 
 namespace YtbDownloader.Core.Downloaders
 {
-    public class Downloader : IDownloader, IDisposable
+    public class Downloader : IDownloader
     {
         private Process process;
         private const string AudioFormat = "bestaudio[ext=m4a]/bestaudio";
@@ -179,36 +179,6 @@ namespace YtbDownloader.Core.Downloaders
         {
             process.Dispose();
             OnComplete();
-        }
-
-        #region IDisposable Support
-
-        private bool disposedValue;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    process?.Dispose();
-                }
-
-                disposedValue = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        #endregion IDisposable Support
-
-        ~Downloader()
-        {
-            Dispose(false);
         }
     }
 }
