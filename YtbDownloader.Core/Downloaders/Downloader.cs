@@ -115,6 +115,7 @@ namespace YtbDownloader.Core.Downloaders
                     case "http" or "https":
                         option.HttpProxy = $"{proxy.Host}:{proxy.Port}";
                         break;
+
                     case "sock4" or "socks5":
                         option.SocksProxy = $"{proxy.Host}:{proxy.Port}";
                         break;
