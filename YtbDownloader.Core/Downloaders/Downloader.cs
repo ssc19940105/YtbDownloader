@@ -110,13 +110,14 @@ namespace YtbDownloader.Core.Downloaders
             if (config.IsProxy)
             {
                 var proxy = new Uri(config.ProxyUrl);
-                if (proxy.Scheme is "http" or "https")
+                switch (proxy.Scheme)
                 {
-                    option.HttpProxy = $"{proxy.Host}:{proxy.Port}";
-                }
-                else if (proxy.Scheme is "sock4" or "socks5")
-                {
-                    option.SocksProxy = $"{proxy.Host}:{proxy.Port}";
+                    case "http" or "https":
+                        option.HttpProxy = $"{proxy.Host}:{proxy.Port}";
+                        break;
+                    case "sock4" or "socks5":
+                        option.SocksProxy = $"{proxy.Host}:{proxy.Port}";
+                        break;
                 }
             }
             InitializeTask(option);
