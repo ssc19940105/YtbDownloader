@@ -8,11 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37">
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.4.194">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Vanara.PInvoke.Kernel32" Version="3.3.7" />
+    <PackageReference Include="Vanara.PInvoke.Kernel32" Version="3.3.8" />
   </ItemGroup>
 
 </Project>
