@@ -38,8 +38,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Catel.MVVM" Version="5.12.12" />
-    <PackageReference Include="FluentValidation" Version="10.0.4" />
+    <PackageReference Include="Catel.MVVM" Version="5.12.13" />
+    <PackageReference Include="FluentValidation" Version="10.1.0" />
     <PackageReference Include="I18NPortable" Version="1.0.1" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.4.194">
       <PrivateAssets>all</PrivateAssets>
